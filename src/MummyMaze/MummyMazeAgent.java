@@ -32,7 +32,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
 
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 13; j++) {
-                matrix[i][j] = scanner.;
+                matrix[i][j] = scanner.next();//ver o char?
             }
             scanner.nextLine();
         }
