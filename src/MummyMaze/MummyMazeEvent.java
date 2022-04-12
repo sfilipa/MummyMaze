@@ -1,6 +1,6 @@
 package MummyMaze;
 
-import eightpuzzle.EightPuzzleState;
+import MummyMaze.MummyMazeState;
 
 import java.util.EventObject;
 

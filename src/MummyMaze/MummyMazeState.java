@@ -3,20 +3,21 @@ package MummyMaze;
 import agent.Action;
 import agent.State;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MummyMazeState extends State implements Cloneable {
     //cleneable é copiar o objeto
 
-    static final char[][] GOAL_MATRIX = {{5, 1, 2}, //é o nosso estado objetivo
+   static final char[][] GOAL_MATRIX = {{5, 1, 2}, //é o nosso estado objetivo
                                        {3, 4, 5},
                                        {6, 7, 8}};
     //sitio onde as peças devem estar na matriz final
     //                              1  2  3  4  5  6  7  8  9 Peças de 1 a 9
     final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
     final char[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
-    public static final int SIZE = 6; //tamanho da matriz, 3x3
+    public static final int SIZE = 6; //tamanho da matriz, 6x6
     private final char[][] matrix;
     private int lineBlank; //variável auxiliar
     private int columnBlank; //variável auxiliar
@@ -57,6 +58,10 @@ public class MummyMazeState extends State implements Cloneable {
         return columnBlank != 0;
     }
 
+    public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar
+        return false;
+    }
+
     /*
      * In the next four methods we don't verify if the actions are valid.
      * This is done in method executeActions in class EightPuzzleProblem.
@@ -83,9 +88,17 @@ public class MummyMazeState extends State implements Cloneable {
         matrix[lineBlank][columnBlank] = 0;
     }
 
-    public double computeTilesOutOfPlace(MummyMazeState finalState) {
+    public void dontMove(){
+        matrix[lineBlank][columnBlank] = matrix[lineBlank][columnBlank];
+        matrix[lineBlank][columnBlank] = 0;
+    }
 
-        //TODO
+    //HEURISTICAS
+    //numero de quadriculas
+
+    /*public double computeTilesOutOfPlace(MummyMazeState finalState) {
+
+
         //devolve o numero de peças fora do sitio
         double tilesOutOfPlace = 0;
 
@@ -104,7 +117,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public double computeTileDistances(MummyMazeState finalState) {
 
-        //TODO
+
         //sum of manhattan distances between where the tiles are and where they should
 
         double tilesDistances = 0;
@@ -123,7 +136,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
         return tilesDistances;
-    }
+    }*/
 
     public int getNumLines() {
         return matrix.length;
@@ -198,7 +211,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public void firePuzzleChanged(MummyMazeEvent pe) {
         for (MummyMazeListener listener : listeners) {
-            listener.puzzleChanged(null);
+            listener.mummyMazeChanged(null);
         }
     }
 }

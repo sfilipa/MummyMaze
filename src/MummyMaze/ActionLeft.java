@@ -1,7 +1,7 @@
 package MummyMaze;
 
 import agent.Action;
-import eightpuzzle.EightPuzzleState;
+import MummyMaze.MummyMazeState;
 
 public class ActionLeft extends Action<MummyMazeState>{
 

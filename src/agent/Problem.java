@@ -1,6 +1,6 @@
 package agent;
 
-import eightpuzzle.EightPuzzleState;
+import MummyMaze.MummyMazeState;
 
 import java.util.List;
 

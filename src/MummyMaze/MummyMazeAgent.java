@@ -1,9 +1,7 @@
 package MummyMaze;
 
 import agent.Agent;
-import eightpuzzle.EightPuzzleState;
-import eightpuzzle.HeuristicTileDistance;
-import eightpuzzle.HeuristicTilesOutOfPlace;
+import MummyMaze.MummyMazeState;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +13,10 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
     public MummyMazeAgent(MummyMazeState environemt) {
         super(environemt);
         initialEnvironment = (MummyMazeState) environemt.clone();
-        heuristics.add(new HeuristicTileDistance());
+        //HEURISTICAS
+        /*heuristics.add(new HeuristicTileDistance());
         heuristics.add(new HeuristicTilesOutOfPlace());
-        heuristic = heuristics.get(0);
+        heuristic = heuristics.get(0);*/
     }
 
     public MummyMazeState resetEnvironment(){
@@ -32,7 +31,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
 
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 13; j++) {
-                matrix[i][j] = scanner.next().charAt(i);//ver o char?
+                matrix[i][j] = scanner.next().charAt(i);
             }
             scanner.nextLine();
         }

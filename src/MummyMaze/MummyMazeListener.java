@@ -1,8 +1,8 @@
 package MummyMaze;
 
-import eightpuzzle.EightPuzzleEvent;
+import MummyMaze.MummyMazeEvent;
 
 public interface MummyMazeListener {
 
-    void puzzleChanged(MummyMazeEvent pe);
+    void mummyMazeChanged(MummyMazeEvent pe);
 }

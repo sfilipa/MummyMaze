@@ -2,169 +2,50 @@ package guiMummy;
 
 import showSolution.SolutionPanel;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public Main() {
 
-		List<String> states = new LinkedList<>();
+		MainFrame frame = new MainFrame();
 
-		String state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . . H . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . . M . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . H . .   \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . . M . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . H . .   \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . M . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . H . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . M . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . H . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . M . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" H . . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . M . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" H . . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" M . . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" M . . . . . \n" +
-				"         -   \n" +
-				" H . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		SolutionPanel.showSolution(states, states.size());
-/*int i=0, j=0;
-		char matrix[][] = new char[13][13];
-		System.out.println(state.toCharArray().length);
-		for (char t:  state.toCharArray()){
-			if(t!='\n') {
-				matrix[i][j] = t;
-				j++;
-			}else{
-				j=0;
-				i++;
-			}
+		// Center the window
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = frame.getSize();
+		if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
 		}
-		String s="";
-		for (int k = 0; k < 13; k++) {
-			s+=String.valueOf(matrix[k])+"\n";
+		if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
 		}
+		frame.setLocation((screenSize.width - frameSize.width) / 2,
+				(screenSize.height - frameSize.height) / 2);
 
-
-		System.out.println(s);
-		SolutionPanel.showState(s);
-*/
-
-		//SolutionPanel.showSolution(states,7);
-
-		/*
-		String state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|M \n" +
-				"   - -       \n" +
-				" . . . . H . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		SolutionPanel.showState(state);
-
-		 */
+		frame.setVisible(true);
 	}
 
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (ClassNotFoundException |
+						InstantiationException |
+						IllegalAccessException |
+						UnsupportedLookAndFeelException exception) {
+					exception.printStackTrace(System.err);
+				}
+				new Main();
+			}
+		});
+
+	}
 }

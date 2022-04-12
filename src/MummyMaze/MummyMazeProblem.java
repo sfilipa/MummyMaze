@@ -11,11 +11,12 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     private MummyMazeState goalState; //para o isGoal method
 
     public MummyMazeProblem(MummyMazeState initialState) {
-        super(initialState, new ArrayList<>(4)); //deve ser sempre a primeira linha num construtor
+        super(initialState, new ArrayList<>(5)); //deve ser sempre a primeira linha num construtor
         super.actions.add(new ActionUp());//lista de ações disponiveis
         super.actions.add(new ActionRight());
         super.actions.add(new ActionDown());
         super.actions.add(new ActionLeft());
+        super.actions.add(new ActionDontMove());
 
         this.goalState = new MummyMazeState(MummyMazeState.GOAL_MATRIX); //iniciar no objetivo(é a constante)
 
@@ -26,8 +27,8 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     @Override
     public List<MummyMazeState> executeActions(MummyMazeState state) {
 
-        //Lista de estado sucessores no máx 4
-       ArrayList<MummyMazeState> successors = new ArrayList<>(4);
+        //Lista de estado sucessores no máx 5
+       ArrayList<MummyMazeState> successors = new ArrayList<>(5);
 
         //para cada ação disponivel
         for(Action action : actions){
@@ -52,7 +53,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     //control + O para override
     @Override
     protected double computePathCost(List<Action> path) {
-        return path.size(); //porque as ações do EightPuzzleProblem têm todas custo 1
+        return path.size(); //porque as ações têm todas custo 1
     }
 
     public MummyMazeState getGoalState() {
