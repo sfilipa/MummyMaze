@@ -5,14 +5,16 @@ import MummyMaze.MummyMazeState;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MummyMazeAgent extends Agent<MummyMazeState> {
 
     protected MummyMazeState initialEnvironment;
 
-    public MummyMazeAgent(MummyMazeState environemt) {
-        super(environemt);
-        initialEnvironment = (MummyMazeState) environemt.clone();
+    public MummyMazeAgent(MummyMazeState environment) {
+        super(environment);
+        initialEnvironment = (MummyMazeState) environment.clone();
         //HEURISTICAS
         /*heuristics.add(new HeuristicTileDistance());
         heuristics.add(new HeuristicTilesOutOfPlace());
@@ -25,16 +27,33 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
     }
 
     public MummyMazeState readInitialStateFromFile(File file) throws IOException {
+        List<String> listaStrings = new ArrayList<String>();
         java.util.Scanner scanner = new java.util.Scanner(file);
+
+        String string;
+
+        // checking end of file
+        while (scanner.hasNext()) {
+            string = scanner.nextLine();
+
+            // adding each string to arraylist
+            listaStrings.add(string);
+        }
+
 
         char[][] matrix = new char [13][13];
 
+
         for (int i = 0; i < 13; i++) {
-            for (int j = 0; j < 13; j++) {
-                matrix[i][j] = scanner.next().charAt(i);
+            for (String eachString: listaStrings) {
+                matrix[i]= eachString.toCharArray();
             }
-            scanner.nextLine();
         }
+        /*
+
+
+            scanner.nextLine();
+        }*/
         initialEnvironment = new MummyMazeState(matrix);
         resetEnvironment();
         return environment;

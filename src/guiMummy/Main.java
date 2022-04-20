@@ -1,9 +1,12 @@
 package guiMummy;
 
+import MummyMaze.MummyMazeAgent;
+import MummyMaze.MummyMazeState;
 import showSolution.SolutionPanel;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.SwingUtilities;
@@ -15,6 +18,12 @@ public class Main {
 	public Main() {
 
 		MainFrame frame = new MainFrame();
+
+		/*MummyMazeAgent agent = new MummyMazeAgent(environment);
+
+		File file = new File("nivel_so_com_heroi_e_paredes.txt");
+
+		agent.readInitialStateFromFile(file);*/
 
 		// Center the window
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
