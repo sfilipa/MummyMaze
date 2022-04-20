@@ -40,20 +40,14 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
             listaStrings.add(string);
         }
 
-
         char[][] matrix = new char [13][13];
-
 
         for (int i = 0; i < 13; i++) {
             for (String eachString: listaStrings) {
                 matrix[i]= eachString.toCharArray();
             }
         }
-        /*
 
-
-            scanner.nextLine();
-        }*/
         initialEnvironment = new MummyMazeState(matrix);
         resetEnvironment();
         return environment;
