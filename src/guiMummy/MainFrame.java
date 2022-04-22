@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
-import com.sun.org.apache.xpath.internal.operations.String;
+
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
@@ -37,12 +37,8 @@ import showSolution.GameArea;
 
 public class MainFrame extends JFrame {
 
-    File file = new File("nivel_so_com_heroi_e_paredes.txt");
     private char[][] initialMatrix = {{'.','.','.','.','.','.'}, {'.','.','.','.','.','.'}, {'.','.','.','.','.','.'},
             {'.','.','.','.','.','.'}, {'.','.','.','.','.','.'},{'.','.','.','.','.','.'}};
-
-    //private MummyMazeAgent agent = new MummyMazeAgent(agent.getEnvironment());
-    //private char[][] initialMatrix = agent.readInitialStateFromFile(file);
     private MummyMazeAgent agent = new MummyMazeAgent(new MummyMazeState(initialMatrix));
     private JComboBox comboBoxSearchMethods;
     private JComboBox comboBoxHeuristics;

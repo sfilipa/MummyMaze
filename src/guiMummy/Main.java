@@ -18,21 +18,7 @@ public class Main {
 	public Main() {
 
 		MainFrame frame = new MainFrame();
-		//MummyMazeState state = new MummyMazeState(char matrix);
-		/*char[][] initialMatrix = {{'.','.','.','.','.','.'}, {'.','.','.','.','.','.'}, {'.','.','.','.','.','.'},
-				{'.','.','.','.','.','.'}, {'.','.','.','.','.','.'},{'.','.','.','.','.','.'}};
 
-		MummyMazeAgent agent = new MummyMazeAgent(new MummyMazeState(initialMatrix));
-		File file = new File("nivel_so_com_heroi_e_paredes.txt");
-
-		SolutionPanel.showSolution();*/
-		//agent.readInitialStateFromFile(file);
-
-		/*MummyMazeAgent agent = new MummyMazeAgent(environment);
-
-		File file = new File("nivel_so_com_heroi_e_paredes.txt");
-
-		agent.readInitialStateFromFile(file);*/
 
 		// Center the window
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
