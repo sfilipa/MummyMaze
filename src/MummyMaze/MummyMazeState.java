@@ -15,9 +15,9 @@ public class MummyMazeState extends State implements Cloneable {
                                        {6, 7, 8}};
     //sitio onde as peças devem estar na matriz final
     //                              1  2  3  4  5  6  7  8  9 Peças de 1 a 9
-    final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
-    final char[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
-    public static final int SIZE = 6; //tamanho da matriz, 6x6
+    //final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
+    //final char[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
+    public static final int SIZE = 13; //tamanho da matriz, 6x6
     private final char[][] matrix;
     private int lineBlank; //variável auxiliar
     private int columnBlank; //variável auxiliar
@@ -96,25 +96,25 @@ public class MummyMazeState extends State implements Cloneable {
     //HEURISTICAS
     //numero de quadriculas
 
-    /*public double computeTilesOutOfPlace(MummyMazeState finalState) {
+    public double computeNumberOfSquares(MummyMazeState finalState) {
 
 
         //devolve o numero de peças fora do sitio
-        double tilesOutOfPlace = 0;
+        double numberOfSquares = 0;
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 if(matrix[i][j] != 0) {
                     if (matrix[i][j] != finalState.matrix[i][j]) {
-                        tilesOutOfPlace += 1;
+                        numberOfSquares += 1;
                     }
                 }
             }
         }
 
-        return tilesOutOfPlace;
+        return numberOfSquares;
     }
-
+    /*
     public double computeTileDistances(MummyMazeState finalState) {
 
 

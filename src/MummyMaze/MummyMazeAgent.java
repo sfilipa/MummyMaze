@@ -1,7 +1,6 @@
 package MummyMaze;
 
 import agent.Agent;
-import MummyMaze.MummyMazeState;
 import showSolution.SolutionPanel;
 
 import java.io.File;
@@ -13,15 +12,14 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
 
     protected MummyMazeState initialEnvironment;
     private List<String> turns;
-    //private char[][] matrix = new char[13][13];
     private double solutionCost;
 
     public MummyMazeAgent(MummyMazeState environment) {
         super(environment);
         initialEnvironment = (MummyMazeState) environment.clone();
         //HEURISTICAS
-        /*heuristics.add(new HeuristicTileDistance());
-        heuristics.add(new HeuristicTilesOutOfPlace());
+        heuristics.add(new HeuristicNumberOfSquares());
+        /*heuristics.add(new HeuristicTilesOutOfPlace());
         heuristic = heuristics.get(0);*/
     }
 
