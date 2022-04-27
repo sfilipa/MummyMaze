@@ -20,8 +20,9 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnBlank; //variável auxiliar
     private int lineHeroi;
     private int columHeroi;
-    private int lineSaida;
-    private int columSaida;
+    private int lineMumia;
+    private int columMumia;
+
 
     public MummyMazeState(char[][] matrix) {
         this.matrix = new char[matrix.length][matrix.length];
@@ -37,6 +38,10 @@ public class MummyMazeState extends State implements Cloneable {
                     lineHeroi = i;
                     columHeroi =j;
                 }
+                if(matrix[i][j] == 'M'){
+                    lineMumia = i;
+                    columMumia =j;
+                }
             }
         }
 
@@ -50,7 +55,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
         if(lineHeroi > 1){
-            if(matrix[lineHeroi-2][columHeroi] == '.' && matrix[lineHeroi-1][columHeroi] != '-' && matrix[lineHeroi-1][columHeroi] != '|') {
+            if(matrix[lineHeroi-2][columHeroi] == '.' && matrix[lineHeroi-1][columHeroi] != '-' && matrix[lineHeroi-1][columHeroi] != '|' && matrix[lineHeroi-2][columHeroi] != 'M') {
                 return true;
             }
         }
@@ -59,7 +64,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveRight() {
         if(columHeroi != matrix.length - 2 ) {
-            if (matrix[lineHeroi][columHeroi + 2] == '.' && matrix[lineHeroi][columHeroi+1] != '-' && matrix[lineHeroi][columHeroi+1] != '|') {
+            if (matrix[lineHeroi][columHeroi + 2] == '.' && matrix[lineHeroi][columHeroi+1] != '-' && matrix[lineHeroi][columHeroi+1] != '|' && matrix[lineHeroi][columHeroi + 2] != 'M') {
                 return true;
             }
         }
@@ -68,7 +73,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveDown() {
         if(lineHeroi!= matrix.length - 2 ) {
-            if (matrix[lineHeroi + 2][columHeroi] == '.' && matrix[lineHeroi+1][columHeroi] != '-' && matrix[lineHeroi+1][columHeroi] != '|') {
+            if (matrix[lineHeroi + 2][columHeroi] == '.' && matrix[lineHeroi+1][columHeroi] != '-' && matrix[lineHeroi+1][columHeroi] != '|' && matrix[lineHeroi + 2][columHeroi] != 'M') {
                 return true;
             }
         }
@@ -78,7 +83,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveLeft() {
         if(columHeroi > 1) {
-            if (matrix[lineHeroi][columHeroi - 2] == '.' && matrix[lineHeroi][columHeroi-1] != '-' && matrix[lineHeroi][columHeroi-1] != '|') {
+            if (matrix[lineHeroi][columHeroi - 2] == '.' && matrix[lineHeroi][columHeroi-1] != '-' && matrix[lineHeroi][columHeroi-1] != '|' && matrix[lineHeroi][columHeroi - 2] != 'M') {
                 return true;
             }
         }
