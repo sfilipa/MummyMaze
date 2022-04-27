@@ -17,7 +17,7 @@ public class MummyMazeState extends State implements Cloneable {
     //                              1  2  3  4  5  6  7  8  9 Peças de 1 a 9
     //final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
     //final char[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
-    public static final int SIZE = 13; //tamanho da matriz, 6x6
+    public static final int SIZE = 13; //tamanho da matriz, 13*13
     private final char[][] matrix;
     private int lineBlank; //variável auxiliar
     private int columnBlank; //variável auxiliar
@@ -178,7 +178,17 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
+        String turno = "";
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                turno += matrix[i][j];
+            }
+            turno += "\n";
+        }
+
+        //SolutionPanel.showState(turno);
+        return turno;
+        /*StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < matrix.length; i++) {
             buffer.append('\n');
             for (int j = 0; j < matrix.length; j++) {
@@ -186,7 +196,7 @@ public class MummyMazeState extends State implements Cloneable {
                 buffer.append(' ');
             }
         }
-        return buffer.toString();
+        return buffer.toString();*/
     }
 
     @Override

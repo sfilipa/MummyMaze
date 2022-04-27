@@ -2,7 +2,7 @@ package MummyMaze;
 
 import agent.Action;
 import agent.Agent;
-import showSolution.SolutionPanel;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -65,8 +65,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
         // checking end of file
         while (scanner.hasNext()) {
             string = scanner.nextLine();
-
-            // adding each string to arraylist
+               // adding each string to arraylist
             listaStrings.add(string);
         }
         char[][] matrix = new char [13][13];
@@ -80,11 +79,12 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
 
         // debug transformar matriz em turno
 
-        String turno = MatrixToString(matrix);
+        //String turno = MatrixToString(matrix);
 
-        SolutionPanel.showState(turno);
+        //SolutionPanel.showState(turno);
 
         initialEnvironment = new MummyMazeState(matrix);
+        //System.out.println(initialEnvironment);
         resetEnvironment();
         return environment;
     }

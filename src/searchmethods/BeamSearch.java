@@ -3,7 +3,6 @@ package searchmethods;
 import agent.State;
 import java.util.List;
 
-import showSolution.SolutionPanel;
 import utils.NodePriorityQueue;
 
 public class BeamSearch extends AStarSearch {

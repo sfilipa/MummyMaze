@@ -30,10 +30,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 
+import guiMummy.showSolution.GameArea;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
-import showSolution.GameArea;
+
 
 public class MainFrame extends JFrame {
 
@@ -44,7 +45,7 @@ public class MainFrame extends JFrame {
     private JComboBox comboBoxHeuristics;
     private JLabel labelSearchParameter = new JLabel("limit/beam size:");
     private JTextField textFieldSearchParameter = new JTextField("0", 5);
-    private MummyMazeTableModel mummyMazeTableModel;
+    private GameArea gameArea;
     private JTable tablePuzzle = new JTable();
     private JButton buttonInitialState = new JButton("Read initial state");
     private JButton buttonSolve = new JButton("Solve");
@@ -99,8 +100,8 @@ public class MainFrame extends JFrame {
         comboBoxHeuristics.addActionListener(new ComboBoxHeuristics_ActionAdapter(this));
 
         JPanel puzzlePanel = new JPanel(new FlowLayout());
-        GameArea gameArea = new GameArea();
-        //puzzlePanel.add(gameArea);
+        gameArea = new GameArea();
+        puzzlePanel.add(gameArea);
         textArea = new JTextArea(15, 31);
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
@@ -112,27 +113,16 @@ public class MainFrame extends JFrame {
         mainPanel.add(puzzlePanel, BorderLayout.SOUTH);
         contentPane.add(mainPanel);
 
-        configureTabel(tablePuzzle);
-
         pack();
-    }
-
-    private void configureTabel(JTable table) {
-        mummyMazeTableModel = new MummyMazeTableModel(agent.getEnvironment());
-        tablePuzzle.setModel(mummyMazeTableModel);
-        table.setDefaultRenderer(Object.class, new MummyMazeTileCellRenderer());
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(Properties.CELL_WIDTH);
-        }
-        table.setRowHeight(Properties.CELL_HEIGHT);
-        table.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     public void buttonInitialState_ActionPerformed(ActionEvent e) {
         JFileChooser fc = new JFileChooser(new java.io.File("."));
         try {
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                mummyMazeTableModel.setMummyMaze(agent.readInitialStateFromFile(fc.getSelectedFile()));
+
+                MummyMazeState m = agent.readInitialStateFromFile(fc.getSelectedFile());
+                gameArea.setMummyMaze(agent.readInitialStateFromFile(fc.getSelectedFile()));
                 buttonSolve.setEnabled(true);
                 buttonShowSolution.setEnabled(false);
                 buttonReset.setEnabled(false);
@@ -147,7 +137,7 @@ public class MainFrame extends JFrame {
     public void comboBoxSearchMethods_ActionPerformed(ActionEvent e) {
         int index = comboBoxSearchMethods.getSelectedIndex();
         agent.setSearchMethod((SearchMethod) comboBoxSearchMethods.getItemAt(index));
-        mummyMazeTableModel.setMummyMaze(agent.resetEnvironment());
+        gameArea.setMummyMaze(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
         buttonReset.setEnabled(false);
@@ -160,7 +150,7 @@ public class MainFrame extends JFrame {
     public void comboBoxHeuristics_ActionPerformed(ActionEvent e) {
         int index = comboBoxHeuristics.getSelectedIndex();
         agent.setHeuristic((Heuristic) comboBoxHeuristics.getItemAt(index));
-        mummyMazeTableModel.setMummyMaze(agent.resetEnvironment());
+        gameArea.setMummyMaze(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
         buttonReset.setEnabled(false);
@@ -230,7 +220,7 @@ public class MainFrame extends JFrame {
     }
 
     public void buttonReset_ActionPerformed(ActionEvent e) {
-        mummyMazeTableModel.setMummyMaze(agent.resetEnvironment());
+        gameArea.setMummyMaze(agent.resetEnvironment());
         buttonShowSolution.setEnabled(true);
         buttonReset.setEnabled(false);
     }

@@ -2,7 +2,7 @@ package guiMummy;
 
 import MummyMaze.MummyMazeAgent;
 import MummyMaze.MummyMazeState;
-import showSolution.SolutionPanel;
+
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
