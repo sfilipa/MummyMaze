@@ -1,5 +1,6 @@
 package MummyMaze;
 
+import agent.Action;
 import agent.Agent;
 import showSolution.SolutionPanel;
 
@@ -31,6 +32,23 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
     @Override
     public void executeSolution() {
         this.turns = new ArrayList<>();
+        /*Cell nextCell = null;
+
+        if (action == Action.NORTH && environment.hasNorthCell(cell)) { //se der para ir para norte, vai
+            nextCell = environment.getNorthCell(cell);
+        } else if (action == Action.SOUTH && environment.hasSouthCell(cell)) {
+            nextCell = environment.getSouthCell(cell);
+        } else if (action == Action.WEST && environment.hasWestCell(cell)) {
+            nextCell = environment.getWestCell(cell);
+        } else if (action == Action.EAST && environment.hasEastCell(cell)) {
+            nextCell = environment.getEastCell(cell);
+        }
+
+        if (nextCell != null && !nextCell.hasWall()) { //se a próxima cell for diferente de null
+            // e diferente de parede
+            setCell(nextCell);
+        }
+*/
         //ir buscar cada turno e colocar aqui a lista
         //cada ação fica num turno
         //TODO definir a lista de turnos - pegar na matriz e transformar em string
