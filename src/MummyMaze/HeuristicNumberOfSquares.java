@@ -6,7 +6,7 @@ public class HeuristicNumberOfSquares extends Heuristic<MummyMazeProblem, MummyM
 
     @Override
     public double compute(MummyMazeState state){
-        return state.computeNumberOfSquares(problem.getGoalState());
+        return state.computeNumberOfSquares(null);
     }
 
     @Override

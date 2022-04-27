@@ -31,29 +31,9 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
 
     @Override
     public void executeSolution() {
-        this.turns = new ArrayList<>();
-        /*Cell nextCell = null;
-
-        if (action == Action.NORTH && environment.hasNorthCell(cell)) { //se der para ir para norte, vai
-            nextCell = environment.getNorthCell(cell);
-        } else if (action == Action.SOUTH && environment.hasSouthCell(cell)) {
-            nextCell = environment.getSouthCell(cell);
-        } else if (action == Action.WEST && environment.hasWestCell(cell)) {
-            nextCell = environment.getWestCell(cell);
-        } else if (action == Action.EAST && environment.hasEastCell(cell)) {
-            nextCell = environment.getEastCell(cell);
+        for(Action action : solution.getActions()){
+            environment.executeAction(action);
         }
-
-        if (nextCell != null && !nextCell.hasWall()) { //se a próxima cell for diferente de null
-            // e diferente de parede
-            setCell(nextCell);
-        }
-*/
-        //ir buscar cada turno e colocar aqui a lista
-        //cada ação fica num turno
-        //TODO definir a lista de turnos - pegar na matriz e transformar em string
-
-        //todo definir o custo da solução
     }
 
     public MummyMazeState readInitialStateFromFile(File file) throws IOException {
@@ -65,7 +45,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
         // checking end of file
         while (scanner.hasNext()) {
             string = scanner.nextLine();
-               // adding each string to arraylist
+            // adding each string to arraylist
             listaStrings.add(string);
         }
         char[][] matrix = new char [13][13];

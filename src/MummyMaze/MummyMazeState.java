@@ -10,9 +10,6 @@ import java.util.Arrays;
 public class MummyMazeState extends State implements Cloneable {
     //cleneable é copiar o objeto
 
-   static final char[][] GOAL_MATRIX = {{5, 1, 2}, //é o nosso estado objetivo
-                                       {3, 4, 5},
-                                       {6, 7, 8}};
     //sitio onde as peças devem estar na matriz final
     //                              1  2  3  4  5  6  7  8  9 Peças de 1 a 9
     //final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
@@ -21,6 +18,10 @@ public class MummyMazeState extends State implements Cloneable {
     private final char[][] matrix;
     private int lineBlank; //variável auxiliar
     private int columnBlank; //variável auxiliar
+    private int lineHeroi;
+    private int columHeroi;
+    private int lineSaida;
+    private int columSaida;
 
     public MummyMazeState(char[][] matrix) {
         this.matrix = new char[matrix.length][matrix.length];
@@ -32,8 +33,13 @@ public class MummyMazeState extends State implements Cloneable {
                     lineBlank = i;
                     columnBlank = j;
                 }
+                if(matrix[i][j] == 'H'){
+                    lineHeroi = i;
+                    columHeroi =j;
+                }
             }
         }
+
     }
 
     @Override
@@ -42,55 +48,82 @@ public class MummyMazeState extends State implements Cloneable {
         firePuzzleChanged(null); //atualizar a interface gráfica
     }
 
-    public boolean canMoveUp() {
-        return lineBlank != 0;
+    public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
+        if(lineHeroi > 1){
+            if(matrix[lineHeroi-2][columHeroi] == '.' && matrix[lineHeroi-1][columHeroi] != '-' && matrix[lineHeroi-1][columHeroi] != '|') {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean canMoveRight() {
-        return columnBlank != matrix.length - 1;
+        if(columHeroi != matrix.length - 2 ) {
+            if (matrix[lineHeroi][columHeroi + 2] == '.' && matrix[lineHeroi][columHeroi+1] != '-' && matrix[lineHeroi][columHeroi+1] != '|') {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean canMoveDown() {
-        return lineBlank != matrix.length - 1;
+        if(lineHeroi!= matrix.length - 2 ) {
+            if (matrix[lineHeroi + 2][columHeroi] == '.' && matrix[lineHeroi+1][columHeroi] != '-' && matrix[lineHeroi+1][columHeroi] != '|') {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public boolean canMoveLeft() {
-        return columnBlank != 0;
+        if(columHeroi > 1) {
+            if (matrix[lineHeroi][columHeroi - 2] == '.' && matrix[lineHeroi][columHeroi-1] != '-' && matrix[lineHeroi][columHeroi-1] != '|') {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar
         return false;
     }
 
-    /*
-     * In the next four methods we don't verify if the actions are valid.
-     * This is done in method executeActions in class EightPuzzleProblem.
-     * Doing the verification in these methods would imply that a clone of the
-     * state was created whether the operation could be executed or not.
-     */
     public void moveUp() { //para cima
-        matrix[lineBlank][columnBlank] = matrix[--lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        matrix[lineHeroi - 2][columHeroi] = matrix[lineHeroi][columHeroi];
+        matrix[lineHeroi][columHeroi] = '.';
+        lineHeroi = lineHeroi -2;
     }
 
     public void moveRight() {
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][++columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        matrix[lineHeroi][columHeroi+2] = matrix[lineHeroi][columHeroi];
+        matrix[lineHeroi][columHeroi] = '.';
+        columHeroi = columHeroi+2;
     }
 
     public void moveDown() {
-        matrix[lineBlank][columnBlank] = matrix[++lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        matrix[lineHeroi+2][columHeroi] = matrix[lineHeroi][columHeroi];
+        matrix[lineHeroi][columHeroi] = '.';
+        lineHeroi=lineHeroi+2;
     }
 
     public void moveLeft() {
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][--columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        matrix[lineHeroi][columHeroi-2] = matrix[lineHeroi][columHeroi];
+        matrix[lineHeroi][columHeroi] = '.';
+        columHeroi=columHeroi-2;
     }
 
     public void dontMove(){
-        matrix[lineBlank][columnBlank] = matrix[lineBlank][columnBlank];
-        matrix[lineBlank][columnBlank] = 0;
+        matrix[lineHeroi][columHeroi] = matrix[lineHeroi][columHeroi];
+        matrix[lineHeroi][columHeroi] = 'H';
+    }
+
+
+    public boolean chegouASaida() {
+        if(matrix[lineHeroi][columHeroi-1] == 'S' || matrix[lineHeroi][columHeroi+1] == 'S' || matrix[lineHeroi-1][columHeroi] == 'S' || matrix[lineHeroi+1][columHeroi] == 'S') {
+            return true;
+        }
+        return false;
     }
 
     //HEURISTICAS
