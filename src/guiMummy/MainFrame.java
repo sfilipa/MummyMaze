@@ -121,7 +121,7 @@ public class MainFrame extends JFrame {
         try {
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 
-                MummyMazeState m = agent.readInitialStateFromFile(fc.getSelectedFile());
+                //MummyMazeState m = agent.readInitialStateFromFile(fc.getSelectedFile());
                 gameArea.setMummyMaze(agent.readInitialStateFromFile(fc.getSelectedFile()));
                 buttonSolve.setEnabled(true);
                 buttonShowSolution.setEnabled(false);

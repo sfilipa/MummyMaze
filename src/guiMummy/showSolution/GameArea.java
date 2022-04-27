@@ -78,12 +78,8 @@ public class GameArea extends JPanel implements MummyMazeListener {
 			return;
 		}
 		String[] splitString = (mummyMaze.toString().split("\\n"));
-
-		System.out.println(".........................................");
-		System.out.println(mummyMaze);
 		for(int i = 0; i < 13; i++) {
 			for(int j = 0; j < 13; j++) {
-				System.out.println(splitString[i]+"-"+splitString[i].length());
 				switch(splitString[i].charAt(j)) {
 					case '-' : g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '=' : g.drawImage(doorHorizontalClosed,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
@@ -120,7 +116,7 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		this.mummyMaze = state;
 		mummyMaze.addListener(this);
 		repaint();
-		System.out.println("passou");
+		//System.out.println("passou");
 	}
 
 	public void setShowSolutionCost(boolean showSolutionCost) {

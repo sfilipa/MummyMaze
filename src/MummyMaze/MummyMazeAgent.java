@@ -89,7 +89,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
         return environment;
     }
 
-    public String MatrixToString(char[][] matrix) {
+    /*public String MatrixToString(char[][] matrix) {
         String turno = "";
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -100,7 +100,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
 
         //SolutionPanel.showState(turno);
         return turno;
-    }
+    }*/
 
 
     public List<String> getTurns() {
