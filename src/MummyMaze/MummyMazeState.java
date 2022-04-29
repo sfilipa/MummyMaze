@@ -16,7 +16,7 @@ public class MummyMazeState extends State implements Cloneable {
     //final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
     //final char[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
     public static final int SIZE = 13; //tamanho da matriz, 13*13
-    private final char[][] matrix;
+    private char[][] matrix;
     private int lineBlank; //variável auxiliar
     private int columnBlank; //variável auxiliar
     private int lineHeroi;
@@ -183,12 +183,16 @@ public class MummyMazeState extends State implements Cloneable {
         return tilesDistances;
     }*/
 
-    public int getNumLines() {
+    /*public int getNumLines() {
         return matrix.length;
     }
 
     public int getNumColumns() {
         return matrix[0].length;
+    }*/
+
+    public void setMatrix(char[][] matrix){
+        this.matrix = matrix;
     }
 
     public char[][] getMatrix() {
