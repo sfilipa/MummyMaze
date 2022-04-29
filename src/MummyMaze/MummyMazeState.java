@@ -21,6 +21,7 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnBlank; //variável auxiliar
     private int lineHeroi;
     private int columHeroi;
+    private int naoMexeu = 0;
     private List<Enemy> enemies;
 
 
@@ -43,19 +44,24 @@ public class MummyMazeState extends State implements Cloneable {
                     Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, i, j);
                     enemies.add(enemy);
                 }
+                if(matrix[i][j] == 'V'){
+                    Enemy enemy = new Enemy(EnemyType.REDMUMMY, i, j);
+                    enemies.add(enemy);
+                }
             }
         }
-
     }
 
     @Override
     public void executeAction(Action action) {
         action.execute(this);//método polimórfico - pode executar métodos diferentes consoante a action
+
+        firePuzzleChanged(null);
+
         for (Enemy e : enemies) {
             e.move(this);
         }
-
-        firePuzzleChanged(null); //atualizar a interface gráfica
+        firePuzzleChanged(null);//atualizar a interface gráfica
     }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
@@ -83,7 +89,6 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
         return false;
-
     }
 
     public boolean canMoveLeft() {
@@ -128,6 +133,7 @@ public class MummyMazeState extends State implements Cloneable {
     public void dontMove(){
         matrix[lineHeroi][columHeroi] = matrix[lineHeroi][columHeroi];
         matrix[lineHeroi][columHeroi] = 'H';
+        naoMexeu = naoMexeu+1;
     }
 
 
@@ -142,8 +148,6 @@ public class MummyMazeState extends State implements Cloneable {
     //numero de quadriculas
 
     public double computeNumberOfSquares(MummyMazeState finalState) {
-
-
         //devolve o numero de peças fora do sitio
         double numberOfSquares = 0;
 
@@ -191,9 +195,9 @@ public class MummyMazeState extends State implements Cloneable {
         return matrix[0].length;
     }*/
 
-    public void setMatrix(char[][] matrix){
+    /*public void setMatrix(char[][] matrix){
         this.matrix = matrix;
-    }
+    }*/
 
     public char[][] getMatrix() {
         return matrix;
@@ -205,6 +209,12 @@ public class MummyMazeState extends State implements Cloneable {
 
     public int getColumHeroi() {
         return columHeroi;
+    }
+    public int getNaoMexeu() {
+        return naoMexeu;
+    }
+    public void setNaoMexeu(int reset){
+        this.naoMexeu = reset;
     }
 
     public int getTileValue(int line, int column) {

@@ -1,91 +1,98 @@
 package MummyMaze;
 
-import static MummyMaze.EnemyType.REDMUMMY;
-import static MummyMaze.EnemyType.SCORPION;
-
 public class Enemy {
     private EnemyType tipoInimigo = EnemyType.WHITEMUMMY;
 
     private int lineHeroi;
     private int columHeroi;
 
-
-    private int lineMumia;
-    private int columMumia;
+    private int lineMumiaBranca;
+    private int columMumiaBranca;
     private char[][] matrix;
 
     public Enemy(EnemyType tipoInimigo,  int lineMumia, int columMumia) {
         this.tipoInimigo = tipoInimigo;
-        this.lineMumia = lineMumia;
-        this.columMumia = columMumia;
+        this.lineMumiaBranca = lineMumia;
+        this.columMumiaBranca = columMumia;
     }
 
     public void move(MummyMazeState mummyMazeState) {
         this.lineHeroi = mummyMazeState.getLineHeroi();
         this.columHeroi = mummyMazeState.getColumHeroi();
         this.matrix = mummyMazeState.getMatrix();
+
+        if(mummyMazeState.getNaoMexeu() == 2){//PERGUNTAR AO STOR
+            movimentosMumia();
+            mummyMazeState.setNaoMexeu(0);
+        }else {
+            movimentosMumia();
+            mummyMazeState.firePuzzleChanged(null);
+            movimentosMumia();
+        }
+        //mummyMazeState.setMatrix(matrix);//para atualizar a matrix do outro lado
+    }
+
+    public void movimentosMumia(){
         switch (canMove()){//apenas faz os movimentos
             case "nao":
-                matrix[lineMumia][columMumia] = matrix[lineMumia][columMumia];
-                matrix[lineMumia][columMumia] = 'M';
+                matrix[lineMumiaBranca][columMumiaBranca] = matrix[lineMumiaBranca][columMumiaBranca];
+                matrix[lineMumiaBranca][columMumiaBranca] = 'M';
                 break;
             case "cima":
-                matrix[lineMumia - 2][columMumia] = matrix[lineMumia][columMumia];
-                matrix[lineMumia][columMumia] = '.';
-                lineMumia = lineMumia -2;
+                matrix[lineMumiaBranca - 2][columMumiaBranca] = matrix[lineMumiaBranca][columMumiaBranca];
+                matrix[lineMumiaBranca][columMumiaBranca] = '.';
+                lineMumiaBranca = lineMumiaBranca -2;
                 break;
             case "baixo":
-                matrix[lineMumia + 2][columMumia] = matrix[lineMumia][columMumia];
-                matrix[lineMumia][columMumia] = '.';
-                lineMumia = lineMumia + 2;
+                matrix[lineMumiaBranca + 2][columMumiaBranca] = matrix[lineMumiaBranca][columMumiaBranca];
+                matrix[lineMumiaBranca][columMumiaBranca] = '.';
+                lineMumiaBranca = lineMumiaBranca + 2;
                 break;
             case "esq":
-                matrix[lineMumia][columMumia-2] = matrix[lineMumia][columMumia];
-                matrix[lineMumia][columMumia] = '.';
-                columMumia = columMumia - 2;
+                matrix[lineMumiaBranca][columMumiaBranca -2] = matrix[lineMumiaBranca][columMumiaBranca];
+                matrix[lineMumiaBranca][columMumiaBranca] = '.';
+                columMumiaBranca = columMumiaBranca - 2;
                 break;
             case "dir":
-                matrix[lineMumia][columMumia + 2] = matrix[lineMumia][columMumia];
-                matrix[lineMumia][columMumia] = '.';
-                columMumia = columMumia + 2;
+                matrix[lineMumiaBranca][columMumiaBranca + 2] = matrix[lineMumiaBranca][columMumiaBranca];
+                matrix[lineMumiaBranca][columMumiaBranca] = '.';
+                columMumiaBranca = columMumiaBranca + 2;
                 break;
         }
-        mummyMazeState.setMatrix(matrix);//para atualizar a matrix do outro lado
     }
 
     private String canMove() { //mas este não recebe o state
         switch (tipoInimigo) {
             case WHITEMUMMY:
-                    if (columHeroi == columMumia) {//se a coluna do heroi for a mesma que a da mumia
-                        System.out.println("ESTÃO NA MESMA COLUNA");
-                        if(lineMumia > lineHeroi) {
-                            if(lineMumia > 1) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
-                                if (matrix[lineMumia - 2][columMumia] == '.' && matrix[lineMumia - 1][columMumia] != '-') {
+                    if (columHeroi == columMumiaBranca) {//se a coluna do heroi for a mesma que a da mumia
+                        if (lineMumiaBranca > lineHeroi) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                            if (lineMumiaBranca > 1) {
+                                if (matrix[lineMumiaBranca - 2][columMumiaBranca] == '.' && matrix[lineMumiaBranca - 1][columMumiaBranca] != '-') {
                                     return "cima";
                                 }
                             }
-                        }
-                        if(lineMumia < lineHeroi) {//se a linha da mumia tiver a cima da do heroi, move-se para baixo
-                            if(columMumia > 1) {
-                                if (matrix[lineMumia + 2][columMumia] == '.' && matrix[lineMumia + 1][columMumia] != '-') {
+                        } else {//se a linha da mumia tiver a cima da do heroi, move-se para baixo
+                            if (lineMumiaBranca != matrix.length - 2) {
+                                if (matrix[lineMumiaBranca + 2][columMumiaBranca] == '.' && matrix[lineMumiaBranca + 1][columMumiaBranca] != '-') {
                                     return "baixo";
                                 }
                             }
                         }
-                        if (lineHeroi == lineMumia) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                        if (lineHeroi == lineMumiaBranca) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
                             return "nao";
                         }
                     } else {//se a coluna do heroi não for a mesma que a da mumia
-                        if(columMumia > columHeroi){//Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
-                            if(lineMumia != matrix.length - 2) {
-                                if (matrix[lineMumia][columMumia - 2] == '.' && matrix[lineMumia][columMumia - 1] != '|') {
+                        if (columMumiaBranca > columHeroi) {//Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
+                            if (columMumiaBranca > 1) {
+                                if (matrix[lineMumiaBranca][columMumiaBranca - 2] == '.' && matrix[lineMumiaBranca][columMumiaBranca - 1] != '|') {
                                     return "esq";
                                 }
                             }
-                        }
-                        if(columMumia != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
-                            if (matrix[lineMumia][columMumia + 2] == '.' && matrix[lineMumia][columMumia + 1] != '|') {
-                                return "dir";
+                        } else {
+                            if (columMumiaBranca != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                                if (matrix[lineMumiaBranca][columMumiaBranca + 2] == '.' && matrix[lineMumiaBranca][columMumiaBranca + 1] != '|') {
+                                    return "dir";
+                                }
                             }
                         }
                     }
@@ -99,12 +106,12 @@ public class Enemy {
     }
 
 
-    public int getLineMumia() {
-        return lineMumia;
+    public int getLineMumiaBranca() {
+        return lineMumiaBranca;
     }
 
-    public int getColumMumia() {
-        return columMumia;
+    public int getColumMumiaBranca() {
+        return columMumiaBranca;
     }
 
 }
