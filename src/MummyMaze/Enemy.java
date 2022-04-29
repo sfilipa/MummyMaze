@@ -16,15 +16,14 @@ public class Enemy {
 
     public Enemy(EnemyType tipoInimigo,  int lineMumia, int columMumia) {
         this.tipoInimigo = tipoInimigo;
-        this.lineHeroi = mummyMazeState.getLineHeroi(); //mudar
-        this.columHeroi = mummyMazeState.getColumHeroi(); //mudar
         this.lineMumia = lineMumia;
         this.columMumia = columMumia;
-
     }
 
     public void move(MummyMazeState mummyMazeState) {
-
+        this.lineHeroi = mummyMazeState.getLineHeroi();
+        this.columHeroi = mummyMazeState.getColumHeroi();
+        this.matrix = mummyMazeState.getMatrix();
         if (canMove()) {
             if(matrix[columHeroi] == matrix[columMumia] && mummyMazeState.cannotMove()){ //se estiver na coluna, mexe na linha
                 matrix[lineMumia - 2][columMumia] = matrix[lineMumia][columMumia];
