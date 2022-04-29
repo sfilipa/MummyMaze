@@ -6,6 +6,7 @@ import agent.State;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MummyMazeState extends State implements Cloneable {
     //cleneable é copiar o objeto
@@ -22,10 +23,12 @@ public class MummyMazeState extends State implements Cloneable {
     private int columHeroi;
     private int lineMumia;
     private int columMumia;
+    private List<Enemy> enemies;
 
 
     public MummyMazeState(char[][] matrix) {
         this.matrix = new char[matrix.length][matrix.length];
+        enemies = new ArrayList<>();
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -41,6 +44,8 @@ public class MummyMazeState extends State implements Cloneable {
                 if(matrix[i][j] == 'M'){
                     lineMumia = i;
                     columMumia =j;
+                    Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, this, i, j); //mudar
+                    enemies.add(enemy);
                 }
             }
         }
@@ -50,6 +55,10 @@ public class MummyMazeState extends State implements Cloneable {
     @Override
     public void executeAction(Action action) {
         action.execute(this);//método polimórfico - pode executar métodos diferentes consoante a action
+        for (Enemy e : enemies) {
+            e.move(this);
+        }
+
         firePuzzleChanged(null); //atualizar a interface gráfica
     }
 
@@ -100,11 +109,13 @@ public class MummyMazeState extends State implements Cloneable {
         lineHeroi = lineHeroi -2;
     }
 
+
     public void moveRight() {
         matrix[lineHeroi][columHeroi+2] = matrix[lineHeroi][columHeroi];
         matrix[lineHeroi][columHeroi] = '.';
         columHeroi = columHeroi+2;
     }
+
 
     public void moveDown() {
         matrix[lineHeroi+2][columHeroi] = matrix[lineHeroi][columHeroi];
@@ -182,6 +193,26 @@ public class MummyMazeState extends State implements Cloneable {
 
     public int getNumColumns() {
         return matrix[0].length;
+    }
+
+    public char[][] getMatrix() {
+        return matrix;
+    }
+
+    public int getLineHeroi() {
+        return lineHeroi;
+    }
+
+    public int getColumHeroi() {
+        return columHeroi;
+    }
+
+    public int getLineMumia() {
+        return lineMumia;
+    }
+
+    public int getColumMumia() {
+        return columMumia;
     }
 
     public int getTileValue(int line, int column) {
