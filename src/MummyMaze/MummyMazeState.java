@@ -16,13 +16,12 @@ public class MummyMazeState extends State implements Cloneable {
     //final char[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
     //final char[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
     public static final int SIZE = 13; //tamanho da matriz, 13*13
-    private final char[][] matrix;
+    private char[][] matrix;
     private int lineBlank; //variável auxiliar
     private int columnBlank; //variável auxiliar
     private int lineHeroi;
     private int columHeroi;
-    private int lineMumia;
-    private int columMumia;
+    private int naoMexeu = 0;
     private List<Enemy> enemies;
 
 
@@ -42,29 +41,32 @@ public class MummyMazeState extends State implements Cloneable {
                     columHeroi =j;
                 }
                 if(matrix[i][j] == 'M'){
-                    lineMumia = i;
-                    columMumia =j;
-                    Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, this, i, j); //mudar
+                    Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, i, j);
                     enemies.add(enemy);
+                }
+                if(matrix[i][j] == 'V'){
+                    Enemy enemyMummyRed = new Enemy(EnemyType.REDMUMMY, i, j);
+                    enemies.add(enemyMummyRed);
                 }
             }
         }
-
     }
 
     @Override
     public void executeAction(Action action) {
         action.execute(this);//método polimórfico - pode executar métodos diferentes consoante a action
+
+        firePuzzleChanged(null);
+
         for (Enemy e : enemies) {
             e.move(this);
         }
-
-        firePuzzleChanged(null); //atualizar a interface gráfica
+        firePuzzleChanged(null);//atualizar a interface gráfica
     }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
         if(lineHeroi > 1){
-            if(matrix[lineHeroi-2][columHeroi] == '.' && matrix[lineHeroi-1][columHeroi] != '-' && matrix[lineHeroi-1][columHeroi] != '|' && matrix[lineHeroi-2][columHeroi] != 'M') {
+            if(matrix[lineHeroi-2][columHeroi] == '.' && matrix[lineHeroi-1][columHeroi] != '-' && matrix[lineHeroi-2][columHeroi] != 'M') {
                 return true;
             }
         }
@@ -73,7 +75,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveRight() {
         if(columHeroi != matrix.length - 2 ) {
-            if (matrix[lineHeroi][columHeroi + 2] == '.' && matrix[lineHeroi][columHeroi+1] != '-' && matrix[lineHeroi][columHeroi+1] != '|' && matrix[lineHeroi][columHeroi + 2] != 'M') {
+            if (matrix[lineHeroi][columHeroi + 2] == '.' && matrix[lineHeroi][columHeroi+1] != '|' && matrix[lineHeroi][columHeroi + 2] != 'M') {
                 return true;
             }
         }
@@ -82,17 +84,16 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveDown() {
         if(lineHeroi!= matrix.length - 2 ) {
-            if (matrix[lineHeroi + 2][columHeroi] == '.' && matrix[lineHeroi+1][columHeroi] != '-' && matrix[lineHeroi+1][columHeroi] != '|' && matrix[lineHeroi + 2][columHeroi] != 'M') {
+            if (matrix[lineHeroi + 2][columHeroi] == '.' && matrix[lineHeroi+1][columHeroi] != '-' && matrix[lineHeroi + 2][columHeroi] != 'M') {
                 return true;
             }
         }
         return false;
-
     }
 
     public boolean canMoveLeft() {
         if(columHeroi > 1) {
-            if (matrix[lineHeroi][columHeroi - 2] == '.' && matrix[lineHeroi][columHeroi-1] != '-' && matrix[lineHeroi][columHeroi-1] != '|' && matrix[lineHeroi][columHeroi - 2] != 'M') {
+            if (matrix[lineHeroi][columHeroi - 2] == '.' && matrix[lineHeroi][columHeroi-1] != '|' && matrix[lineHeroi][columHeroi - 2] != 'M') {
                 return true;
             }
         }
@@ -132,6 +133,7 @@ public class MummyMazeState extends State implements Cloneable {
     public void dontMove(){
         matrix[lineHeroi][columHeroi] = matrix[lineHeroi][columHeroi];
         matrix[lineHeroi][columHeroi] = 'H';
+        naoMexeu = naoMexeu+1;
     }
 
 
@@ -146,8 +148,6 @@ public class MummyMazeState extends State implements Cloneable {
     //numero de quadriculas
 
     public double computeNumberOfSquares(MummyMazeState finalState) {
-
-
         //devolve o numero de peças fora do sitio
         double numberOfSquares = 0;
 
@@ -187,13 +187,17 @@ public class MummyMazeState extends State implements Cloneable {
         return tilesDistances;
     }*/
 
-    public int getNumLines() {
+    /*public int getNumLines() {
         return matrix.length;
     }
 
     public int getNumColumns() {
         return matrix[0].length;
-    }
+    }*/
+
+    /*public void setMatrix(char[][] matrix){
+        this.matrix = matrix;
+    }*/
 
     public char[][] getMatrix() {
         return matrix;
@@ -206,13 +210,11 @@ public class MummyMazeState extends State implements Cloneable {
     public int getColumHeroi() {
         return columHeroi;
     }
-
-    public int getLineMumia() {
-        return lineMumia;
+    public int getNaoMexeu() {
+        return naoMexeu;
     }
-
-    public int getColumMumia() {
-        return columMumia;
+    public void setNaoMexeu(int reset){
+        this.naoMexeu = reset;
     }
 
     public int getTileValue(int line, int column) {
