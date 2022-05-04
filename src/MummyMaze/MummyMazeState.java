@@ -48,6 +48,11 @@ public class MummyMazeState extends State implements Cloneable {
                     Enemy enemyMummyRed = new Enemy(EnemyType.REDMUMMY, i, j);
                     enemies.add(enemyMummyRed);
                 }
+
+                if(matrix[i][j] == 'E'){
+                    Enemy enemyScorpion = new Enemy(EnemyType.SCORPION, i, j);
+                    enemies.add(enemyScorpion);
+                }
             }
         }
     }
