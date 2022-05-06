@@ -37,6 +37,7 @@ public class MummyMazeState extends State implements Cloneable {
                     columnBlank = j;
                 }
                 if(matrix[i][j] == 'H'){
+                    int[][] heroi = new int[lineHeroi][columHeroi];
                     lineHeroi = i;
                     columHeroi =j;
                 }
@@ -62,75 +63,98 @@ public class MummyMazeState extends State implements Cloneable {
         action.execute(this);//método polimórfico - pode executar métodos diferentes consoante a action
 
         firePuzzleChanged(null);
-
-        for (Enemy e : enemies) {
-            e.move(this);
+        if(!chegouASaida()) {//no nivel 5 a mumia comia o heroi depois de ele chegar a saida ent pus isto aqui
+            for (Enemy e : enemies) {
+                e.move(this);
+            }
+            firePuzzleChanged(null);//atualizar a interface gráfica
         }
-        firePuzzleChanged(null);//atualizar a interface gráfica
     }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
-        if(lineHeroi > 1){
-            if(matrix[lineHeroi-2][columHeroi] == '.' && matrix[lineHeroi-1][columHeroi] != '-' && matrix[lineHeroi-2][columHeroi] != 'M') {
-                return true;
+        if(!isDead()) {
+            if (lineHeroi > 1) {
+                if (matrix[lineHeroi - 1][columHeroi] != '-') {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public boolean canMoveRight() {
-        if(columHeroi != matrix.length - 2 ) {
-            if (matrix[lineHeroi][columHeroi + 2] == '.' && matrix[lineHeroi][columHeroi+1] != '|' && matrix[lineHeroi][columHeroi + 2] != 'M') {
-                return true;
+        if(!isDead()) {
+            if (columHeroi != matrix.length - 2) {
+                if (matrix[lineHeroi][columHeroi + 1] != '|') {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public boolean canMoveDown() {
-        if(lineHeroi!= matrix.length - 2 ) {
-            if (matrix[lineHeroi + 2][columHeroi] == '.' && matrix[lineHeroi+1][columHeroi] != '-' && matrix[lineHeroi + 2][columHeroi] != 'M') {
-                return true;
+        if(!isDead()) {
+            if (lineHeroi != matrix.length - 2) {
+                if (matrix[lineHeroi + 1][columHeroi] != '-') {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public boolean canMoveLeft() {
-        if(columHeroi > 1) {
-            if (matrix[lineHeroi][columHeroi - 2] == '.' && matrix[lineHeroi][columHeroi-1] != '|' && matrix[lineHeroi][columHeroi - 2] != 'M') {
-                return true;
+        if(!isDead()) {
+            if (columHeroi > 1) {
+                if (matrix[lineHeroi][columHeroi - 1] != '|') {
+                    return true;
+                }
             }
         }
         return false;
     }
 
+    public boolean isDead(){
+        if(matrix[lineHeroi][columHeroi] != 'H'){
+            return true;
+        }
+        return false;
+    }
     public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar
         return false;
     }
 
     public void moveUp() { //para cima
-        matrix[lineHeroi - 2][columHeroi] = matrix[lineHeroi][columHeroi];
+        if(matrix[lineHeroi-2][columHeroi] == '.'){
+            matrix[lineHeroi - 2][columHeroi] = matrix[lineHeroi][columHeroi];
+        }
         matrix[lineHeroi][columHeroi] = '.';
         lineHeroi = lineHeroi -2;
     }
 
 
     public void moveRight() {
-        matrix[lineHeroi][columHeroi+2] = matrix[lineHeroi][columHeroi];
+        if(matrix[lineHeroi][columHeroi + 2] == '.'){
+            matrix[lineHeroi][columHeroi + 2] = matrix[lineHeroi][columHeroi];
+        }
         matrix[lineHeroi][columHeroi] = '.';
         columHeroi = columHeroi+2;
     }
 
 
     public void moveDown() {
-        matrix[lineHeroi+2][columHeroi] = matrix[lineHeroi][columHeroi];
+        if(matrix[lineHeroi+2][columHeroi] == '.'){
+            matrix[lineHeroi + 2][columHeroi] = matrix[lineHeroi][columHeroi];
+        }
         matrix[lineHeroi][columHeroi] = '.';
         lineHeroi=lineHeroi+2;
     }
 
     public void moveLeft() {
-        matrix[lineHeroi][columHeroi-2] = matrix[lineHeroi][columHeroi];
+        if(matrix[lineHeroi][columHeroi-2] == '.'){
+            matrix[lineHeroi][columHeroi - 2] = matrix[lineHeroi][columHeroi];
+        }
         matrix[lineHeroi][columHeroi] = '.';
         columHeroi=columHeroi-2;
     }

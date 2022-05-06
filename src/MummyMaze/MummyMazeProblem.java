@@ -30,18 +30,19 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
         //Lista de estado sucessores no máx 5
         ArrayList<MummyMazeState> successors = new ArrayList<>(5);
 
-        //para cada ação disponivel
-        for(Action action : actions){
-            //  se a ação for válida
-            if(action.isValid(state)){
-                //criar um novo estado sucessor (igual ao original)
-                MummyMazeState successor = (MummyMazeState) state.clone();
-                //executar a ação sobre o novo estado
-                successor.executeAction(action);
-                //      adicionar o novo estado à lista de sucessores
-                successors.add(successor);
+            //para cada ação disponivel
+            for (Action action : actions) {
+                //  se a ação for válida
+                if (action.isValid(state)) {
+                    //criar um novo estado sucessor (igual ao original)
+                    MummyMazeState successor = (MummyMazeState) state.clone();
+                    //executar a ação sobre o novo estado
+                    successor.executeAction(action);
+                    //      adicionar o novo estado à lista de sucessores
+                    successors.add(successor);
+                }
             }
-        }
+
         return successors; //devolver a lista de estados sucessores
     }
 
