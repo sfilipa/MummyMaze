@@ -135,7 +135,7 @@ public class Enemy {
                         }
                     } else {//se a linha da mumia tiver a cima da do heroi, move-se para baixo
                         if (columnEnemy != matrix.length - 2) {
-                            if (matrix[lineEnemy][columnEnemy + 2] != '|' && matrix[lineEnemy][columnEnemy+2] != 'M' && matrix[lineEnemy][columnEnemy+2] != 'E' && matrix[lineEnemy][columnEnemy+2] != 'V') {
+                            if (matrix[lineEnemy][columnEnemy + 1] != '|' && matrix[lineEnemy][columnEnemy+2] != 'M' && matrix[lineEnemy][columnEnemy+2] != 'E' && matrix[lineEnemy][columnEnemy+2] != 'V') {
                                 return "dir";
                             }
                         }
