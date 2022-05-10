@@ -21,6 +21,8 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnBlank; //variável auxiliar
     private int lineHeroi;
     private int columHeroi;
+    private int lineArmadilha;
+    private int columnArmadilha;
     private int naoMexeu = 0;
     private List<Enemy> enemies;
 
@@ -53,6 +55,12 @@ public class MummyMazeState extends State implements Cloneable {
                 if(matrix[i][j] == 'E'){
                     Enemy enemyScorpion = new Enemy(EnemyType.SCORPION, i, j);
                     enemies.add(enemyScorpion);
+                }
+
+                if(matrix[i][j] == 'A'){
+                    int[][] armadilha = new int[lineArmadilha][columnArmadilha];
+                    lineArmadilha = i;
+                    columnArmadilha =j;
                 }
             }
         }
@@ -116,11 +124,14 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean isDead(){
-        if(matrix[lineHeroi][columHeroi] != 'H'){
+        if(matrix[lineHeroi][columHeroi] != 'H' || matrix[lineHeroi][columHeroi] == 'A'){
             return true;
         }
         return false;
     }
+
+
+
     public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar
         return false;
     }
@@ -313,4 +324,5 @@ public class MummyMazeState extends State implements Cloneable {
             listener.mummyMazeChanged(null);
         }
     }
+
 }
