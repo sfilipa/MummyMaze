@@ -23,6 +23,10 @@ public class MummyMazeState extends State implements Cloneable {
     private int columHeroi;
     private int lineArmadilha;
     private int columnArmadilha;
+    private int linePortaHorizontal;
+    private int columnPortaHorizontal;
+    private int linePortaVertical;
+    private int columnPortaVertical;
     private int naoMexeu = 0;
     private List<Enemy> enemies;
 
@@ -62,6 +66,19 @@ public class MummyMazeState extends State implements Cloneable {
                     lineArmadilha = i;
                     columnArmadilha =j;
                 }
+
+                if(matrix[i][j] == '=' || matrix[i][j] == '_'){
+                    int[][] portaHorizontal = new int[linePortaHorizontal][columnPortaHorizontal];
+                    linePortaHorizontal = i;
+                    columnPortaHorizontal =j;
+                }
+
+                if(matrix[i][j] == '"' || matrix[i][j] == ')'){
+                    int[][] portaVertical = new int[linePortaVertical][columnPortaVertical];
+                    linePortaVertical = i;
+                    columnPortaVertical =j;
+                }
+
             }
         }
     }
@@ -130,7 +147,15 @@ public class MummyMazeState extends State implements Cloneable {
         return false;
     }
 
-
+    public void Key(){
+        if(matrix[lineHeroi][columHeroi] == 'C'){
+            if(matrix[linePortaHorizontal][columnPortaHorizontal] == '_'){ //se a porta estiver aberta
+                matrix[linePortaHorizontal][columnPortaHorizontal] = '='; //fecha
+            }else{
+                matrix[linePortaHorizontal][columnPortaHorizontal] = '_'; //se estiver fechada, vai abrir
+            }
+        }
+    }
 
     public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar
         return false;
