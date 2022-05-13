@@ -29,11 +29,14 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnPortaVertical;
     private int naoMexeu = 0;
     private List<Enemy> enemies;
-    int[][] heroi;
+    private List<Elements> elements;
+    Cell[][] heroi;
+    Cell[][] armadilha;
+    Cell[][] horizontalDoor;
+    Cell[][] verticalDoor;
+
     //criar classe cell, agente reativo, metodo equals
     //ter lista de elementos moveis, mumias, escorpioes, chaves, portas, armadilha, hierarquia de classes elementos?, subclasse de elementos moveis
-    //
-
 
     public MummyMazeState(char[][] matrix) {
         this.matrix = new char[matrix.length][matrix.length];
@@ -54,33 +57,48 @@ public class MummyMazeState extends State implements Cloneable {
                 if(matrix[i][j] == 'M'){
                     Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, i, j);
                     enemies.add(enemy);
+
+                    Elements element = new Elements(ElementType.WHITEMUMMY);
+                    elements.add(element);
                 }
                 if(matrix[i][j] == 'V'){
                     Enemy enemyMummyRed = new Enemy(EnemyType.REDMUMMY, i, j);
                     enemies.add(enemyMummyRed);
+                    Elements element = new Elements(ElementType.REDMUMMY);
+                    elements.add(element);
                 }
 
                 if(matrix[i][j] == 'E'){
                     Enemy enemyScorpion = new Enemy(EnemyType.SCORPION, i, j);
                     enemies.add(enemyScorpion);
+                    Elements element = new Elements(ElementType.SCORPION);
+                    elements.add(element);
                 }
 
                 if(matrix[i][j] == 'A'){
                     int[][] armadilha = new int[lineArmadilha][columnArmadilha];
                     lineArmadilha = i;
                     columnArmadilha =j;
+                    Elements element = new Elements(ElementType.TRAP);
+                    elements.add(element);
                 }
 
                 if(matrix[i][j] == '=' || matrix[i][j] == '_'){
                     int[][] portaHorizontal = new int[linePortaHorizontal][columnPortaHorizontal];
                     linePortaHorizontal = i;
                     columnPortaHorizontal =j;
+
+                    Elements element = new Elements(ElementType.HORIZONTALDOOR);
+                    elements.add(element);
                 }
 
                 if(matrix[i][j] == '"' || matrix[i][j] == ')'){
                     int[][] portaVertical = new int[linePortaVertical][columnPortaVertical];
                     linePortaVertical = i;
                     columnPortaVertical =j;
+
+                    Elements element = new Elements(ElementType.VERTICALDOOR);
+                    elements.add(element);
                 }
 
             }
