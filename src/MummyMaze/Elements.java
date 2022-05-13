@@ -1,9 +1,12 @@
 package MummyMaze;
 
 public class Elements {
-    private ElementType tipoInimigo;
+    private Cell cell;
 
-    public Elements(ElementType tipoInimigo) {
-        this.tipoInimigo = tipoInimigo;
+    public Elements(Cell cell) {
+        this.cell = cell;
     }
+
+
 }
+
