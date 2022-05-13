@@ -29,6 +29,10 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnPortaVertical;
     private int naoMexeu = 0;
     private List<Enemy> enemies;
+    int[][] heroi;
+    //criar classe cell, agente reativo, metodo equals
+    //ter lista de elementos moveis, mumias, escorpioes, chaves, portas, armadilha, hierarquia de classes elementos?, subclasse de elementos moveis
+    //
 
 
     public MummyMazeState(char[][] matrix) {
@@ -98,8 +102,9 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
         if(!isDead()) {
+            Key();
             if (lineHeroi > 1) {
-                if (matrix[lineHeroi - 1][columHeroi] != '-') {
+                if (matrix[lineHeroi - 1][columHeroi] != '-' && matrix[lineHeroi-1][columHeroi] != '=') {
                     return true;
                 }
             }
@@ -109,8 +114,9 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveRight() {
         if(!isDead()) {
+            Key();
             if (columHeroi != matrix.length - 2) {
-                if (matrix[lineHeroi][columHeroi + 1] != '|') {
+                if (matrix[lineHeroi][columHeroi + 1] != '|' && matrix[lineHeroi][columHeroi+1] != '"') {
                     return true;
                 }
             }
@@ -119,9 +125,10 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean canMoveDown() {
-        if(!isDead()) {
+        if(!isDead() ) {
+            Key();
             if (lineHeroi != matrix.length - 2) {
-                if (matrix[lineHeroi + 1][columHeroi] != '-') {
+                if (matrix[lineHeroi + 1][columHeroi] != '-' && matrix[lineHeroi+1][columHeroi] != '=') {
                     return true;
                 }
             }
@@ -131,8 +138,9 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveLeft() {
         if(!isDead()) {
+            Key();
             if (columHeroi > 1) {
-                if (matrix[lineHeroi][columHeroi - 1] != '|') {
+                if (matrix[lineHeroi][columHeroi - 1] != '|' && matrix[lineHeroi][columHeroi-1] != '"') {
                     return true;
                 }
             }
@@ -153,6 +161,11 @@ public class MummyMazeState extends State implements Cloneable {
                 matrix[linePortaHorizontal][columnPortaHorizontal] = '='; //fecha
             }else{
                 matrix[linePortaHorizontal][columnPortaHorizontal] = '_'; //se estiver fechada, vai abrir
+            }
+            if(matrix[linePortaVertical][columnPortaVertical] == ')'){
+                matrix[linePortaVertical][columnPortaVertical] = '"';
+            }else{
+                matrix[linePortaVertical][columnPortaVertical] = ')';
             }
         }
     }
