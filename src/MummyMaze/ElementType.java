@@ -1,5 +1,0 @@
-package MummyMaze;
-
-public enum ElementType  {
-    WHITEMUMMY, REDMUMMY, SCORPION, KEY, HORIZONTALDOOR, VERTICALDOOR, TRAP
-}

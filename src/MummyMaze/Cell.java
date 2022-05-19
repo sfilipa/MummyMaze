@@ -4,10 +4,18 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Cell {
-    private final int line, column;
+    private int line, column;
 
     public Cell(int line, int column) {
         this.line = line;
+        this.column = column;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public void setColumn(int column) {
         this.column = column;
     }
 
