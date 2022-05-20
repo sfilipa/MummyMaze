@@ -83,6 +83,14 @@ public class MummyMazeState extends State implements Cloneable {
             }
             //firePuzzleChanged(null);//atualizar a interface gráfica
         }
+        if(hero.equals(key)){
+            Key();
+        }
+        if(whiteMummy.equals(redMummy)){
+            enemies.remove(whiteMummy);
+        }else if(whiteMummy.equals(scorpion)) {
+            enemies.remove(whiteMummy);
+        }
     }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
@@ -140,8 +148,7 @@ public class MummyMazeState extends State implements Cloneable {
         return false;
     }
 
-    public void HasKey(){
-        if(hero.equals(key)){
+    public void Key(){
             if(matrix[horizontalDoor.getLine()][horizontalDoor.getColumn()] == '_'){ //se a porta estiver aberta
                 matrix[horizontalDoor.getLine()][horizontalDoor.getColumn()] = '='; //fecha
             }else{
@@ -152,7 +159,7 @@ public class MummyMazeState extends State implements Cloneable {
             }else{
                 matrix[verticalDoor.getLine()][verticalDoor.getColumn()] = ')';
             }
-        }
+
     }
 
     public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar

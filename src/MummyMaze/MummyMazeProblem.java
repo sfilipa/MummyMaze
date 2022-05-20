@@ -39,7 +39,9 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
                     //executar a ação sobre o novo estado
                     successor.executeAction(action);
                     //      adicionar o novo estado à lista de sucessores
-                    successors.add(successor);
+                    if(!successor.isDead()) {
+                        successors.add(successor);
+                    }
                 }
             }
 
