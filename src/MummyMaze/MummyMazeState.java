@@ -81,7 +81,7 @@ public class MummyMazeState extends State implements Cloneable {
             for (Enemy e : enemies) {
                 e.move(this);
             }
-            firePuzzleChanged(null);//atualizar a interface gráfica
+            //firePuzzleChanged(null);//atualizar a interface gráfica
         }
     }
 
