@@ -25,20 +25,24 @@ public class Enemy {
 
         if(tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY){ //2 movimentos
             if(mummyMazeState.getNaoMexeu() == 2){//PERGUNTAR AO STOR
-                mummyMazeState.firePuzzleChanged(null);
+                //mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
+                mummyMazeState.firePuzzleChanged(null);
                 //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
                 mummyMazeState.setNaoMexeu(0);
             }else {
-                mummyMazeState.firePuzzleChanged(null);
+                //mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
                 //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
                 mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
+                mummyMazeState.firePuzzleChanged(null);
             }
         }
         if(tipoInimigo == SCORPION){ //apenas 1 movimento
+            //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
+            mummyMazeState.firePuzzleChanged(null);
         }
     }
 
