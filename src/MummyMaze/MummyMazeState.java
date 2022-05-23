@@ -80,27 +80,30 @@ public class MummyMazeState extends State implements Cloneable {
         if(!chegouASaida()) {//no nivel 5 a mumia comia o heroi depois de ele chegar a saida ent pus isto aqui
             for (Enemy e : enemies) {
                 e.move(this);
+                firePuzzleChanged(null);
             }
             //firePuzzleChanged(null);//atualizar a interface gráfica
         }
         if(hero.equals(key)){
             Key();
         }
-        if(enemies.contains(whiteMummy)){
-            if(whiteMummy.equals(redMummy)){
+        if(enemies.contains(whiteMummy) && enemies.contains(redMummy)){
+            if(whiteMummy.equals(redMummy)) {
                 enemies.remove(whiteMummy);
-            }else if(whiteMummy.equals(scorpion)) {
-                enemies.remove(whiteMummy);
+                whiteMummy = null;//??
             }
-        }
-        if(enemies.contains(redMummy)){
-            if(redMummy.equals(scorpion)){
+        }else if(enemies.contains(whiteMummy) && enemies.contains(scorpion)){
+            if(whiteMummy.equals(scorpion)) {
+                enemies.remove(whiteMummy);
+                whiteMummy = null;//??
+            }
+        }else if(enemies.contains(redMummy) && enemies.contains(scorpion)) {
+            if (redMummy.equals(scorpion)) {
                 enemies.remove(redMummy);
+                redMummy = null;//??
             }
         }
-
-
-    }
+        }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
         if(!isDead()) {
@@ -151,7 +154,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean isDead(){
-        if(hero.equals(trap) ||matrix[hero.getLine()][hero.getColumn()] != 'H' || hero.equals(redMummy) || hero.equals(scorpion)){
+        if(hero.equals(trap) || hero.equals(whiteMummy)|| hero.equals(redMummy) || hero.equals(scorpion)){
             return true;
         }
         return false;
@@ -175,42 +178,33 @@ public class MummyMazeState extends State implements Cloneable {
         return false;
     }
 
-    public void moveUp() { //para cima
-        if(matrix[hero.getLine()-2][hero.getColumn()] == '.'){
-            matrix[hero.getLine() - 2][hero.getColumn()] = matrix[hero.getLine()][hero.getColumn()];
-        }
+    public void moveUp() {
         matrix[hero.getLine()][hero.getColumn()] = '.';
         hero.setLine(hero.getLine()-2);
+        matrix[hero.getLine()][hero.getColumn()] = 'H';
     }
 
 
     public void moveRight() {
-        if(matrix[hero.getLine()][hero.getColumn() + 2] == '.'){
-            matrix[hero.getLine()][hero.getColumn() + 2] = matrix[hero.getLine()][hero.getColumn()];
-        }
         matrix[hero.getLine()][hero.getColumn()] = '.';
         hero.setColumn(hero.getColumn()+2);
+        matrix[hero.getLine()][hero.getColumn()] = 'H';
     }
 
 
     public void moveDown() {
-        if(matrix[hero.getLine()+2][hero.getColumn()] == '.'){
-            matrix[hero.getLine() + 2][hero.getColumn()] = matrix[hero.getLine()][hero.getColumn()];
-        }
         matrix[hero.getLine()][hero.getColumn()] = '.';
         hero.setLine(hero.getLine()+2);
+        matrix[hero.getLine()][hero.getColumn()] = 'H';
     }
 
     public void moveLeft() {
-        if(matrix[hero.getLine()][hero.getColumn()-2] == '.'){
-            matrix[hero.getLine()][hero.getColumn() - 2] = matrix[hero.getLine()][hero.getColumn()];
-        }
         matrix[hero.getLine()][hero.getColumn()] = '.';
         hero.setColumn(hero.getColumn()-2);
+        matrix[hero.getLine()][hero.getColumn()] = 'H';
     }
 
     public void dontMove(){
-        matrix[hero.getLine()][hero.getColumn()] = matrix[hero.getLine()][hero.getColumn()];
         matrix[hero.getLine()][hero.getColumn()] = 'H';
         naoMexeu = naoMexeu+1;
     }
