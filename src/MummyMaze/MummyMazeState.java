@@ -97,20 +97,12 @@ public class MummyMazeState extends State implements Cloneable {
         if(hero.equals(key)){
             Key();
         }
-        if(enemies.contains(whiteMummy) && enemies.contains(redMummy)){
-            if(whiteMummy.equals(redMummy)) {
-                enemies.remove(whiteMummy);
-                whiteMummy = null;//??
-            }
-        }else if(enemies.contains(whiteMummy) && enemies.contains(scorpion)){
-            if(whiteMummy.equals(scorpion)) {
-                enemies.remove(whiteMummy);
-                whiteMummy = null;//??
-            }
-        }else if(enemies.contains(redMummy) && enemies.contains(scorpion)) {
-            if (redMummy.equals(scorpion)) {
-                enemies.remove(redMummy);
-                redMummy = null;//??
+        if(!enemies.contains(scorpion)) {
+            if (enemies.contains(whiteMummy) && enemies.contains(redMummy)) {
+                if (whiteMummy.equals(redMummy)) {
+                    enemies.remove(whiteMummy);
+                    whiteMummy = null;//??
+                }
             }
         }else if(enemies.contains(whiteMummy) && enemies.contains(redMummy) && enemies.contains(scorpion)){
             if (redMummy.equals(scorpion)) {
@@ -121,7 +113,24 @@ public class MummyMazeState extends State implements Cloneable {
                 whiteMummy = null;//??
             }
         }
+        if(!enemies.contains(redMummy)) {
+            if (enemies.contains(whiteMummy) && enemies.contains(scorpion)) {
+                if (whiteMummy.equals(scorpion)) {
+                    enemies.remove(whiteMummy);
+                    whiteMummy = null;//??
+                }
+            }
         }
+        if(!enemies.contains(whiteMummy)){
+            if(enemies.contains(redMummy) && enemies.contains(scorpion)) {
+                if (redMummy.equals(scorpion)) {
+                    enemies.remove(redMummy);
+                    redMummy = null;//??
+                }
+            }
+        }
+
+    }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
         if(!isDead()) {
