@@ -14,6 +14,8 @@ public class Enemy {
     private EnemyType tipoInimigo;
     private char[][] matrix;
 
+    int mumiaparada=0;
+
     public Enemy(EnemyType tipoInimigo, Cell enemy) {
         this.enemy = enemy;
         this.tipoInimigo = tipoInimigo;
@@ -24,7 +26,7 @@ public class Enemy {
         matrix = mummyMazeState.getMatrix();
 
         if(tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY){ //2 movimentos
-            if(mummyMazeState.getNaoMexeu() == 2){//PERGUNTAR AO STOR
+            if(mummyMazeState.getNaoMexeu() >= 2){//PERGUNTAR AO STOR
                 //mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
                 mummyMazeState.firePuzzleChanged(null);
@@ -36,13 +38,14 @@ public class Enemy {
                 //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
                 mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
-                //mummyMazeState.firePuzzleChanged(null);
+                mumiaparada=0;
+                mummyMazeState.firePuzzleChanged(null);
             }
         }
         if(tipoInimigo == SCORPION){ //apenas 1 movimento
             //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
-            //mummyMazeState.firePuzzleChanged(null);
+            mummyMazeState.firePuzzleChanged(null);
         }
     }
 
@@ -81,6 +84,7 @@ public class Enemy {
             case "nao":
                 matrix[enemy.getLine()][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
                 //matrix[lineEnemy][columnEnemy] = matrix[lineEnemy][columnEnemy];
+                mumiaparada = 1;
                 break;
 
         }
@@ -89,7 +93,7 @@ public class Enemy {
     private String canMove() { //mas este não recebe o state
         switch (tipoInimigo) {
             case WHITEMUMMY:
-                if (enemy.isInSameColumn(hero)) {//se a coluna do heroi for a mesma que a da mumia
+                if (enemy.isInSameColumn(hero) || mumiaparada ==1) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemy.getLine() > hero.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemy.getLine() > 2) {
                             if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
@@ -123,7 +127,7 @@ public class Enemy {
                 }
                 break;
             case REDMUMMY:
-                if (enemy.isInSameLine(hero)) {//se a coluna do heroi for a mesma que a da mumia
+                if (enemy.isInSameLine(hero)|| mumiaparada==1) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemy.getColumn() > hero.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemy.getColumn() > 1) {
                             if (matrix[enemy.getLine()][enemy.getColumn() - 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() - 1] != ')') {
@@ -157,7 +161,7 @@ public class Enemy {
 
                 break;
             case SCORPION:
-                if (enemy.isInSameColumn(hero)) {//se a coluna do heroi for a mesma que a da mumia
+                if (enemy.isInSameColumn(hero) || mumiaparada==1) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemy.getLine() > hero.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemy.getLine() > 2) {
                             if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
