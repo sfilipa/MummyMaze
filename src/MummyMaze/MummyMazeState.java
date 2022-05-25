@@ -15,8 +15,10 @@ public class MummyMazeState extends State implements Cloneable {
     private List<Enemy> enemies;
     private Cell hero;
     private Cell trap;
-    private Cell horizontalDoor;
-    private Cell verticalDoor;
+    private Cell horizontalDoorClosed;
+    private Cell horizontalDoorOpen;
+    private Cell verticalDoorClosed;
+    private Cell verticalDoorOpen;
     private Cell exit;
     private Cell whiteMummy;
     private Cell redMummy;
@@ -58,12 +60,20 @@ public class MummyMazeState extends State implements Cloneable {
                     this.trap = new Cell(i,j);;
                 }
 
-                if(matrix[i][j] == '=' || matrix[i][j] == '_'){
-                    this.horizontalDoor = new Cell(i,j);
+                if(matrix[i][j] == '='){
+                    this.horizontalDoorClosed = new Cell(i,j);
                 }
 
-                if(matrix[i][j] == '"' || matrix[i][j] == ')'){
-                    this.verticalDoor = new Cell(i,j);
+                if(matrix[i][j] == '_'){
+                    this.horizontalDoorOpen = new Cell(i,j);
+                }
+
+                if(matrix[i][j] == '"'){
+                    this.verticalDoorOpen = new Cell(i,j);
+                }
+
+                if(matrix[i][j] == ')'){
+                    this.verticalDoorClosed = new Cell(i,j);
                 }
                 if(matrix[i][j] == 'C'){
                     this.key = new Cell(i,j);
@@ -161,16 +171,20 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void Key(){
-            if(matrix[horizontalDoor.getLine()][horizontalDoor.getColumn()] == '_'){ //se a porta estiver aberta
-                matrix[horizontalDoor.getLine()][horizontalDoor.getColumn()] = '='; //fecha
+        if(horizontalDoorOpen != null|| horizontalDoorClosed != null)
+            if(horizontalDoorClosed.equals("=")){ //se a porta estiver aberta
+                horizontalDoorClosed = horizontalDoorOpen; //fecha
             }else{
-                matrix[horizontalDoor.getLine()][horizontalDoor.getColumn()] = '_'; //se estiver fechada, vai abrir
+                horizontalDoorClosed = horizontalDoorOpen; //se estiver fechada, vai abrir
             }
-            if(matrix[verticalDoor.getLine()][verticalDoor.getColumn()] == ')'){ //porta fechada
-                matrix[verticalDoor.getLine()][verticalDoor.getColumn()] = '"';
-            }else{
-                matrix[verticalDoor.getLine()][verticalDoor.getColumn()] = ')';
+            if(verticalDoorOpen != null|| verticalDoorClosed != null){
+                if(verticalDoorClosed.equals(")")){ //porta fechada
+                    verticalDoorClosed = verticalDoorOpen;
+                }else{
+                    verticalDoorOpen = verticalDoorClosed;
+                }
             }
+
 
     }
 
