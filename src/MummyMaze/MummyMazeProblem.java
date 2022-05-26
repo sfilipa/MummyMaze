@@ -58,6 +58,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     @Override
     protected double computePathCost(List<Action> path) {
         return path.size(); //porque as ações têm todas custo 1
+
     }
 
     /*public MummyMazeState getGoalState() {

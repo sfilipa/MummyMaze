@@ -46,7 +46,6 @@ public class MainFrame extends JFrame {
     private JLabel labelSearchParameter = new JLabel("limit/beam size:");
     private JTextField textFieldSearchParameter = new JTextField("0", 5);
     private GameArea gameArea;
-    private JTable tablePuzzle = new JTable();
     private JButton buttonInitialState = new JButton("Read initial state");
     private JButton buttonSolve = new JButton("Solve");
     private JButton buttonStop = new JButton("Stop");
@@ -181,6 +180,7 @@ public class MainFrame extends JFrame {
                     textArea.setText(agent.getSearchReport());
                     if (agent.hasSolution()) {
                         buttonShowSolution.setEnabled(true);
+                        gameArea.setSolutionCost(agent.getSolutionCost());
                     }
                 }
                 buttonSolve.setEnabled(true);

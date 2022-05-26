@@ -86,6 +86,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState> {
     public List<String> getTurns() {
         return turns;
     }
+
     public double getSolutionCost(){
         return solutionCost;
     }

@@ -21,9 +21,11 @@ public class MummyMazeState extends State implements Cloneable {
     private Cell verticalDoorOpen;
     private Cell exit;
     private Cell whiteMummy;
+    private Cell whiteMummy2;
     private Cell redMummy;
     private Cell scorpion;
     private Cell key;
+    private int conta = 0;
 
 
     public MummyMazeState(char[][] matrix) {
@@ -40,9 +42,16 @@ public class MummyMazeState extends State implements Cloneable {
                     this.exit = new Cell(i,j);
                 }
                 if(matrix[i][j] == 'M'){
-                    this.whiteMummy = new Cell(i, j);
-                    Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, whiteMummy);
-                    enemies.add(enemy);
+                    if(conta == 0) {
+                        this.whiteMummy = new Cell(i, j);
+                        Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, whiteMummy);
+                        enemies.add(enemy);
+                        conta = 1;
+                    }else{
+                        this.whiteMummy2 = new Cell(i, j);
+                        Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, whiteMummy2);
+                        enemies.add(enemy);
+                    }
                 }
                 if(matrix[i][j] == 'V'){
                     this.redMummy = new Cell(i,j);
@@ -97,38 +106,54 @@ public class MummyMazeState extends State implements Cloneable {
         if(hero.equals(key)){
             Key();
         }
-        if(!enemies.contains(scorpion)) {
-            if (enemies.contains(whiteMummy) && enemies.contains(redMummy)) {
-                if (whiteMummy.equals(redMummy)) {
-                    enemies.remove(whiteMummy);
-                    whiteMummy = null;//??
-                }
-            }
-        }else if(enemies.contains(whiteMummy) && enemies.contains(redMummy) && enemies.contains(scorpion)){
+      // if(!enemies.contains(scorpion)) {
+           if (enemies.contains(whiteMummy) && enemies.contains(redMummy)) {
+               if (whiteMummy.equals(redMummy)) {
+                   enemies.remove(whiteMummy);
+                   whiteMummy = null;//??
+               }
+           }
+   //    }else
+        if(enemies.contains(whiteMummy) && enemies.contains(redMummy) && enemies.contains(scorpion)) {
             if (redMummy.equals(scorpion)) {
                 enemies.remove(redMummy);
                 redMummy = null;//??
-            }if (redMummy.equals(whiteMummy) || scorpion.equals(whiteMummy)) {
+            }
+            if (redMummy.equals(whiteMummy) || scorpion.equals(whiteMummy)) {
                 enemies.remove(whiteMummy);
                 whiteMummy = null;//??
             }
         }
-        if(!enemies.contains(redMummy)) {
-            if (enemies.contains(whiteMummy) && enemies.contains(scorpion)) {
-                if (whiteMummy.equals(scorpion)) {
-                    enemies.remove(whiteMummy);
-                    whiteMummy = null;//??
-                }
+       //}
+       //if(!enemies.contains(redMummy)) {
+           if (enemies.contains(whiteMummy) && enemies.contains(scorpion)) {
+               if (whiteMummy.equals(scorpion)) {
+                   enemies.remove(whiteMummy);
+                   whiteMummy = null;//??
+               }
+           }
+       //}
+       //if(!enemies.contains(whiteMummy)){
+           if(enemies.contains(redMummy) && enemies.contains(scorpion)) {
+               if (redMummy.equals(scorpion)) {
+                   enemies.remove(redMummy);
+                   redMummy = null;//??
+               }
+           }
+      // }
+        if(enemies.contains(whiteMummy) && enemies.contains(whiteMummy2)) {
+            if (whiteMummy.equals(whiteMummy2)) {
+                enemies.remove(whiteMummy2);
+                whiteMummy2 = null;//??
             }
         }
-        if(!enemies.contains(whiteMummy)){
-            if(enemies.contains(redMummy) && enemies.contains(scorpion)) {
-                if (redMummy.equals(scorpion)) {
-                    enemies.remove(redMummy);
-                    redMummy = null;//??
+
+            if(enemies.contains(whiteMummy2) && enemies.contains(scorpion)) {
+                if (scorpion.equals(whiteMummy2)) {
+                    enemies.remove(whiteMummy2);
+                    whiteMummy2 = null;//??
                 }
             }
-        }
 
     }
 
@@ -181,7 +206,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean isDead(){
-        if(hero.equals(trap) || hero.equals(whiteMummy)|| hero.equals(redMummy) || hero.equals(scorpion)){
+        if(hero.equals(trap) || hero.equals(whiteMummy) || hero.equals(whiteMummy2)|| hero.equals(redMummy) || hero.equals(scorpion)){
             return true;
         }
         return false;
@@ -201,8 +226,6 @@ public class MummyMazeState extends State implements Cloneable {
                     verticalDoorOpen = verticalDoorClosed;
                 }
             }
-
-
     }
 
     public boolean cannotMove(){  //acrescentado, quando o heroi não se mexe - mudar
