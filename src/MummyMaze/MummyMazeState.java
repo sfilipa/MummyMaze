@@ -43,7 +43,7 @@ public class MummyMazeState extends State implements Cloneable {
                 }
                 if(matrix[i][j] == 'M'){
                     if(conta == 0) {
-                        this.whiteMummy = new Cell(i, j);
+                        this.whiteMummy = new Cell(i, j);//por a ccell no sitio da var da white Mummy
                         Enemy enemy = new Enemy(EnemyType.WHITEMUMMY, whiteMummy);
                         enemies.add(enemy);
                         conta = 1;
@@ -106,13 +106,20 @@ public class MummyMazeState extends State implements Cloneable {
         if(hero.equals(key)){
             Key();
         }
-           if (enemies.contains(whiteMummy) && enemies.contains(redMummy) && whiteMummy != null && redMummy != null) {
-               if (whiteMummy.equals(redMummy)) {
-                   enemies.remove(whiteMummy);
-                   whiteMummy = null;//??
-               }
-           }
-        if(enemies.contains(whiteMummy) && enemies.contains(redMummy) && enemies.contains(scorpion) && whiteMummy != null && redMummy != null && scorpion != null) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
+
+            }
+
+
+        }
+        if (enemies.contains(whiteMummy) && enemies.contains(redMummy)) {
+            if (whiteMummy.equals(redMummy)) {
+                enemies.remove(whiteMummy);
+                whiteMummy = null;//??
+            }
+        }
+        if(enemies.contains(whiteMummy) && enemies.contains(redMummy) && enemies.contains(scorpion) ) {
             if (redMummy.equals(scorpion)) {
                 enemies.remove(redMummy);
                 redMummy = null;//??
@@ -123,37 +130,37 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
 
-           if (enemies.contains(whiteMummy) && enemies.contains(scorpion) && whiteMummy != null && scorpion != null) {
-               if (whiteMummy.equals(scorpion)) {
-                   enemies.remove(whiteMummy);
-                   whiteMummy = null;//??
-               }
-           }
-           if(enemies.contains(redMummy) && enemies.contains(scorpion) && redMummy != null && scorpion != null) {
-               if (redMummy.equals(scorpion)) {
-                   enemies.remove(redMummy);
-                   redMummy = null;//??
-               }
-           }
-        if(enemies.contains(whiteMummy) && enemies.contains(whiteMummy2) && whiteMummy != null && whiteMummy2 != null) {
+        if (enemies.contains(whiteMummy) && enemies.contains(scorpion)) {
+            if (whiteMummy.equals(scorpion)) {
+                enemies.remove(whiteMummy);
+                whiteMummy = null;//??
+            }
+        }
+        if(enemies.contains(redMummy) && enemies.contains(scorpion)) {
+            if (redMummy.equals(scorpion)) {
+                enemies.remove(redMummy);
+                redMummy = null;//??
+            }
+        }
+        if(enemies.contains(whiteMummy) && enemies.contains(whiteMummy2)) {
             if (whiteMummy.equals(whiteMummy2)) {
                 enemies.remove(whiteMummy2);
                 whiteMummy2 = null;//??
             }
         }
 
-            if(enemies.contains(whiteMummy2) && enemies.contains(scorpion) && whiteMummy2 != null && scorpion != null) {
-                if (scorpion.equals(whiteMummy2)) {
+        if(enemies.contains(whiteMummy2) && enemies.contains(scorpion)) {
+            if (scorpion.equals(whiteMummy2)) {
                     enemies.remove(whiteMummy2);
                     whiteMummy2 = null;//??
                 }
             }
-            if(key != null) {
+           /* if(key != null) {
                 MostrarKey();
             }
        if(trap != null) {
             MostrarTrap();
-        }
+        }*/
 
     }
 
@@ -270,6 +277,8 @@ public class MummyMazeState extends State implements Cloneable {
         }
         return false;
     }
+
+
 
     //HEURISTICAS
     //numero de quadriculas
@@ -401,16 +410,6 @@ public class MummyMazeState extends State implements Cloneable {
 
     public Cell getCellHero() {
         return hero;
-    }
-
-    public int checkMummy(Cell cell){
-        if(cell.equals(whiteMummy)){
-            return 1;
-        }
-        if(cell.equals(whiteMummy2)){
-            return 2;
-        }
-        return 0;
     }
 
     public int getNaoMexeu() {

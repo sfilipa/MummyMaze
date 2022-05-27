@@ -1,34 +1,26 @@
 package MummyMaze;
 
-import static MummyMaze.EnemyType.REDMUMMY;
-import static MummyMaze.EnemyType.SCORPION;
+import static MummyMaze.EnemyType.*;
 
 public class Enemy {
-    private EnemyType WHITEMUMMY = EnemyType.WHITEMUMMY;
-    //private EnemyType mumiaBranca = EnemyType.WHITEMUMMY;
-    private EnemyType mumiaVermelha = REDMUMMY;
-
-    private Cell enemy;
-    private Cell hero;
+    private Cell enemyCell;
+    private Cell heroCell;
 
     private EnemyType tipoInimigo;
     private char[][] matrix;
 
-    int mumiaparada=0;
-    int mumiaparada2=0;
-    int scorpionparado=0;
-    int redMummyparado=0;
-    int check=0;
+    public EnemyType getTipoInimigo() {
+        return tipoInimigo;
+    }
 
     public Enemy(EnemyType tipoInimigo, Cell enemy) {
-        this.enemy = enemy;
+        this.enemyCell = enemy;
         this.tipoInimigo = tipoInimigo;
     }
 
     public void move(MummyMazeState mummyMazeState) {
-        hero = mummyMazeState.getCellHero();
+        heroCell = mummyMazeState.getCellHero();
         matrix = mummyMazeState.getMatrix();
-        check = mummyMazeState.checkMummy(enemy);
 
         if(tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY){ //2 movimentos
             if(mummyMazeState.getNaoMexeu() >= 2){//PERGUNTAR AO STOR
@@ -43,63 +35,49 @@ public class Enemy {
                 //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
                 mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
-                mumiaparada =0;
-                mumiaparada2=0;
-                redMummyparado=0;
-
             }
         }
         if(tipoInimigo == SCORPION){ //apenas 1 movimento
             //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
-            scorpionparado=0;
         }
     }
 
     public void movimentosInimigos(){
         switch (canMove()){//apenas faz os movimentos
             case "morreu":
-                if(!hero.equals(enemy)) {
+                if(!heroCell.equals(enemyCell)) {
 
-                    matrix[hero.getLine()][hero.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
+                    matrix[heroCell.getLine()][heroCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
 
-                    matrix[enemy.getLine()][enemy.getColumn()] = '.';
-                    enemy.setLine(hero.getLine());
-                    enemy.setColumn(hero.getColumn());
+                    matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
+                    enemyCell.setLine(heroCell.getLine());
+                    enemyCell.setColumn(heroCell.getColumn());
                 }
                 break;
             case "cima":
-                matrix[enemy.getLine() - 2][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
-                matrix[enemy.getLine()][enemy.getColumn()] = '.';
-                enemy.setLine(enemy.getLine()-2);
+                matrix[enemyCell.getLine() - 2][enemyCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
+                matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
+                enemyCell.setLine(enemyCell.getLine()-2);
                 break;
             case "baixo":
-                matrix[enemy.getLine() + 2][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
-                matrix[enemy.getLine()][enemy.getColumn()] = '.';
-                enemy.setLine(enemy.getLine()+2);
+                matrix[enemyCell.getLine() + 2][enemyCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
+                matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
+                enemyCell.setLine(enemyCell.getLine()+2);
                 break;
             case "esq":
-                matrix[enemy.getLine()][enemy.getColumn() -2] = matrix[enemy.getLine()][enemy.getColumn()];
-                matrix[enemy.getLine()][enemy.getColumn()] = '.';
-                enemy.setColumn(enemy.getColumn()-2);
+                matrix[enemyCell.getLine()][enemyCell.getColumn() -2] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
+                matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
+                enemyCell.setColumn(enemyCell.getColumn()-2);
                 break;
             case "dir":
-                matrix[enemy.getLine()][enemy.getColumn() + 2] = matrix[enemy.getLine()][enemy.getColumn()];
-                matrix[enemy.getLine()][enemy.getColumn()] = '.';
-                enemy.setColumn(enemy.getColumn()+2);
+                matrix[enemyCell.getLine()][enemyCell.getColumn() + 2] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
+                matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
+                enemyCell.setColumn(enemyCell.getColumn()+2);
                 break;
             case "nao":
-                matrix[enemy.getLine()][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
+                matrix[enemyCell.getLine()][enemyCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
                 //matrix[lineEnemy][columnEnemy] = matrix[lineEnemy][columnEnemy];
-                if(tipoInimigo == WHITEMUMMY && check == 1) {
-                    mumiaparada = 1;
-                }else if(tipoInimigo == WHITEMUMMY && check == 2){
-                    mumiaparada2 =1;
-                }else if(tipoInimigo == SCORPION){
-                    scorpionparado =1;
-                }else if(tipoInimigo == REDMUMMY){
-                    redMummyparado =1;
-                }
                 break;
 
         }
@@ -108,102 +86,199 @@ public class Enemy {
     private String canMove() { //mas este não recebe o state
         switch (tipoInimigo) {
             case WHITEMUMMY:
-                if (enemy.isInSameColumn(hero) || (mumiaparada == 1 && check ==1) || (mumiaparada2 == 1 && check ==2)) {//se a coluna do heroi for a mesma que a da mumia
-                    if (enemy.getLine() > hero.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
-                        if (enemy.getLine() > 2) {
-                            if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
+                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                        if (enemyCell.getLine() > 2) {
+                            if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "cima";
                             }
                         }
-                    } else if(enemy.getLine() < hero.getLine()){//se a linha da mumia tiver a cima da do heroi, move-se para baixo
-                        if (enemy.getLine() < 10) {
-                            if (matrix[enemy.getLine() + 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() + 1][enemy.getColumn()] != '=') {
+                    } else if(enemyCell.getLine() < heroCell.getLine()){//se a linha da mumia tiver a cima da do heroi, move-se para baixo
+                        if (enemyCell.getLine() < 10) {
+                            if (matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '=') {
                                 return "baixo";
                             }
                         }
                     }else{
-                        if (enemy.isInSameLine(hero) && enemy.isInSameColumn(hero)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                        if (enemyCell.isInSameLine(heroCell) && enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
                             return "morreu";
                         }
                     }
-                } else if(enemy.getColumn() > hero.getColumn()){//se a coluna do heroi não for a mesma que a da mumia
+                } else if(enemyCell.getColumn() > heroCell.getColumn()){//se a coluna do heroi não for a mesma que a da mumia
                     //Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
-                    if (enemy.getColumn() > 2) {
-                        if (matrix[enemy.getLine()][enemy.getColumn() - 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() - 1] != ')') {
+                    if (enemyCell.getColumn() > 2) {
+                        if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
                             return "esq";
                         }
                     }
                 } else {
-                    if (enemy.getColumn() < 10) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
-                        if (matrix[enemy.getLine()][enemy.getColumn() + 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() + 1] != ')') {
+                    if (enemyCell.getColumn() < 10) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                        if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != ')') {
                             return "dir";
+                        }
+                    }
+                }
+                if (enemyCell.isInSameLine(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                    if (enemyCell.getColumn() > heroCell.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                        if (enemyCell.getColumn() > 1) {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
+                                return "esq";
+                            }
+                        }
+                    } else if(enemyCell.getColumn() < heroCell.getColumn()){//se a mumia tiver
+                        if (enemyCell.getColumn() != matrix.length - 2) {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
+                                return "dir";
+                            }
+                        }
+                    }else {
+                        if (enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                            return "morreu";
+                        }
+                    }
+                } else if (enemyCell.getLine() > heroCell.getLine()) {//Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
+                    if (enemyCell.getLine() > 1) {
+                        if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
+                            return "cima";
+                        }
+                    }
+                } else {
+                    if (enemyCell.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                        if (matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '=') {
+                            return "baixo";
                         }
                     }
                 }
                 break;
             case REDMUMMY:
-                if (enemy.isInSameLine(hero)|| redMummyparado==1) {//se a coluna do heroi for a mesma que a da mumia
-                    if (enemy.getColumn() > hero.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
-                        if (enemy.getColumn() > 1) {
-                            if (matrix[enemy.getLine()][enemy.getColumn() - 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() - 1] != ')') {
+                if (enemyCell.isInSameLine(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                    if (enemyCell.getColumn() > heroCell.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                        if (enemyCell.getColumn() > 1) {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
                                 return "esq";
                             }
                         }
-                    } else if(enemy.getColumn() < hero.getColumn()){//se a mumia tiver
-                        if (enemy.getColumn() != matrix.length - 2) {
-                            if (matrix[enemy.getLine()][enemy.getColumn() + 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() - 1] != ')') {
+                    } else if(enemyCell.getColumn() < heroCell.getColumn()){//se a mumia tiver
+                        if (enemyCell.getColumn() != matrix.length - 2) {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
                                 return "dir";
                             }
                         }
                     }else {
-                        if (enemy.isInSameColumn(hero)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                        if (enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
                             return "morreu";
                         }
                     }
-                } else if (enemy.getLine() > hero.getLine()) {//Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
-                        if (enemy.getLine() > 1) {
-                            if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
+                } else if (enemyCell.getLine() > heroCell.getLine()) {//Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
+                        if (enemyCell.getLine() > 1) {
+                            if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "cima";
                             }
                         }
                     } else {
-                        if (enemy.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
-                            if (matrix[enemy.getLine() +1][enemy.getColumn()] != '-' && matrix[enemy.getLine() +1][enemy.getColumn()] != '=') {
+                        if (enemyCell.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                            if (matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '=') {
                                 return "baixo";
                             }
                         }
                     }
-                break;
-            case SCORPION:
-                if (enemy.isInSameColumn(hero) || scorpionparado==1) {//se a coluna do heroi for a mesma que a da mumia
-                    if (enemy.getLine() > hero.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
-                        if (enemy.getLine() > 2) {
-                            if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
+                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                        if (enemyCell.getLine() > 2) {
+                            if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "cima";
                             }
                         }
-                    } else if(enemy.getLine() < hero.getLine()){//se a linha da mumia tiver a cima da do heroi, move-se para baixo
-                        if (enemy.getLine() < 10) {
-                            if (matrix[enemy.getLine() + 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() + 1][enemy.getColumn()] != '=') {
+                    } else if(enemyCell.getLine() < heroCell.getLine()){//se a linha da mumia tiver a cima da do heroi, move-se para baixo
+                        if (enemyCell.getLine() < 10) {
+                            if (matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '=') {
                                 return "baixo";
                             }
                         }
                     }else{
-                        if (enemy.isInSameLine(hero) && enemy.isInSameColumn(hero)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                        if (enemyCell.isInSameLine(heroCell) && enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
                             return "morreu";
                         }
                     }
-                } else if(enemy.getColumn() > hero.getColumn()){//se a coluna do heroi não for a mesma que a da mumia
+                } else if(enemyCell.getColumn() > heroCell.getColumn()){//se a coluna do heroi não for a mesma que a da mumia
                     //Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
-                    if (enemy.getColumn() > 2) {
-                        if (matrix[enemy.getLine()][enemy.getColumn() - 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() - 1] != ')') {
+                    if (enemyCell.getColumn() > 2) {
+                        if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
                             return "esq";
                         }
                     }
                 } else {
-                    if (enemy.getColumn() < 10) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
-                        if (matrix[enemy.getLine()][enemy.getColumn() + 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() + 1] != ')') {
+                    if (enemyCell.getColumn() < 10) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                        if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != ')') {
                             return "dir";
+                        }
+                    }
+                }
+                break;
+            case SCORPION:
+                if (enemyCell.getLine() == 7 && enemyCell.getColumn() == 9) {
+                    System.out.println("debug");
+                }
+                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                        if (enemyCell.getLine() > 2) {
+                            if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
+                                return "cima";
+                            }
+                        }
+                    } else if(enemyCell.getLine() < heroCell.getLine()){//se a linha da mumia tiver a cima da do heroi, move-se para baixo
+                        if (enemyCell.getLine() < 10) {
+                            if (matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '=') {
+                                return "baixo";
+                            }
+                        }
+                    }else{
+                        if (enemyCell.isInSameLine(heroCell) && enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                            return "morreu";
+                        }
+                    }
+                } else if(enemyCell.getColumn() > heroCell.getColumn()){//se a coluna do heroi não for a mesma que a da mumia
+                    //Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
+                    if (enemyCell.getColumn() > 2) {
+                        if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
+                            return "esq";
+                        }
+                    }
+                } else {
+                    if (enemyCell.getColumn() < 10) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                        if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != ')') {
+                            return "dir";
+                        }
+                    }
+                }
+                if (enemyCell.isInSameLine(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                    if (enemyCell.getColumn() > heroCell.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                        if (enemyCell.getColumn() > 1) {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
+                                return "esq";
+                            }
+                        }
+                    } else if(enemyCell.getColumn() < heroCell.getColumn()){//se a mumia tiver
+                        if (enemyCell.getColumn() != matrix.length - 2) {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
+                                return "dir";
+                            }
+                        }
+                    }else {
+                        if (enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                            return "morreu";
+                        }
+                    }
+                } else if (enemyCell.getLine() > heroCell.getLine()) {//Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
+                    if (enemyCell.getLine() > 1) {
+                        if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
+                            return "cima";
+                        }
+                    }
+                } else {
+                    if (enemyCell.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                        if (matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '=') {
+                            return "baixo";
                         }
                     }
                 }
@@ -211,7 +286,4 @@ public class Enemy {
         }
         return "nao"; //caso ninguém se possa mover
     }
-
-
-
 }
