@@ -15,6 +15,10 @@ public class Enemy {
     private char[][] matrix;
 
     int mumiaparada=0;
+    int mumiaparada2=0;
+    int scorpionparado=0;
+    int redMummyparado=0;
+    int check=0;
 
     public Enemy(EnemyType tipoInimigo, Cell enemy) {
         this.enemy = enemy;
@@ -24,6 +28,7 @@ public class Enemy {
     public void move(MummyMazeState mummyMazeState) {
         hero = mummyMazeState.getCellHero();
         matrix = mummyMazeState.getMatrix();
+        check = mummyMazeState.checkMummy(enemy);
 
         if(tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY){ //2 movimentos
             if(mummyMazeState.getNaoMexeu() >= 2){//PERGUNTAR AO STOR
@@ -56,37 +61,85 @@ public class Enemy {
                     matrix[enemy.getLine()][enemy.getColumn()] = '.';
                     enemy.setLine(hero.getLine());
                     enemy.setColumn(hero.getColumn());
-                    mumiaparada =0;
+                    if(tipoInimigo == WHITEMUMMY && check == 1) {
+                        mumiaparada = 0;
+                    }else if(tipoInimigo == WHITEMUMMY && check == 2){
+                        mumiaparada2 =0;
+                    }else if(tipoInimigo == SCORPION){
+                        scorpionparado =0;
+                    }else if(tipoInimigo == REDMUMMY){
+                        redMummyparado =0;
+                    }
                 }
                 break;
             case "cima":
                 matrix[enemy.getLine() - 2][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setLine(enemy.getLine()-2);
-                mumiaparada =0;
+                if(tipoInimigo == WHITEMUMMY && check == 1) {
+                    mumiaparada = 0;
+                }else if(tipoInimigo == WHITEMUMMY && check == 2){
+                        mumiaparada2 =0;
+                }else if(tipoInimigo == SCORPION){
+                    scorpionparado =0;
+                }else if(tipoInimigo == REDMUMMY){
+                    redMummyparado =0;
+                }
                 break;
             case "baixo":
                 matrix[enemy.getLine() + 2][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setLine(enemy.getLine()+2);
-                mumiaparada =0;
+                if(tipoInimigo == WHITEMUMMY && check == 1) {
+                    mumiaparada = 0;
+                }else if(tipoInimigo == WHITEMUMMY && check == 2){
+                    mumiaparada2 =0;
+                }else if(tipoInimigo == SCORPION){
+                    scorpionparado =0;
+                }else if(tipoInimigo == REDMUMMY){
+                    redMummyparado =0;
+                }
                 break;
             case "esq":
                 matrix[enemy.getLine()][enemy.getColumn() -2] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setColumn(enemy.getColumn()-2);
-                mumiaparada =0;
+                if(tipoInimigo == WHITEMUMMY && check == 1) {
+                    mumiaparada = 0;
+                }else if(tipoInimigo == WHITEMUMMY && check == 2){
+                    mumiaparada2 =0;
+                }else if(tipoInimigo == SCORPION){
+                    scorpionparado =0;
+                }else if(tipoInimigo == REDMUMMY){
+                    redMummyparado =0;
+                }
                 break;
             case "dir":
                 matrix[enemy.getLine()][enemy.getColumn() + 2] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setColumn(enemy.getColumn()+2);
-                mumiaparada =0;
+                if(tipoInimigo == WHITEMUMMY && check == 1) {
+                    mumiaparada = 0;
+                }else if(tipoInimigo == WHITEMUMMY && check == 2){
+                    mumiaparada2 =0;
+                }else if(tipoInimigo == SCORPION){
+                    scorpionparado =0;
+                }else if(tipoInimigo == REDMUMMY){
+                    redMummyparado =0;
+                }
                 break;
             case "nao":
                 matrix[enemy.getLine()][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
                 //matrix[lineEnemy][columnEnemy] = matrix[lineEnemy][columnEnemy];
-                mumiaparada = 1;
+                if(tipoInimigo == WHITEMUMMY && check == 1) {
+                    mumiaparada = 1;
+                }else if(tipoInimigo == WHITEMUMMY && check == 2){
+                    mumiaparada2 =1;
+                }else if(tipoInimigo == SCORPION){
+                    scorpionparado =1;
+                }else if(tipoInimigo == REDMUMMY){
+                    redMummyparado =1;
+                }
                 break;
 
         }
@@ -95,7 +148,7 @@ public class Enemy {
     private String canMove() { //mas este não recebe o state
         switch (tipoInimigo) {
             case WHITEMUMMY:
-                if (enemy.isInSameColumn(hero) || mumiaparada == 1) {//se a coluna do heroi for a mesma que a da mumia
+                if (enemy.isInSameColumn(hero) || (mumiaparada == 1 && check ==1) || (mumiaparada2 == 1 && check ==2)) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemy.getLine() > hero.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemy.getLine() > 2) {
                             if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
@@ -129,7 +182,7 @@ public class Enemy {
                 }
                 break;
             case REDMUMMY:
-                if (enemy.isInSameLine(hero)|| mumiaparada==1) {//se a coluna do heroi for a mesma que a da mumia
+                if (enemy.isInSameLine(hero)|| redMummyparado==1) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemy.getColumn() > hero.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemy.getColumn() > 1) {
                             if (matrix[enemy.getLine()][enemy.getColumn() - 1] != '|' && matrix[enemy.getLine()][enemy.getColumn() - 1] != ')') {
@@ -162,7 +215,7 @@ public class Enemy {
                     }
                 break;
             case SCORPION:
-                if (enemy.isInSameColumn(hero) || mumiaparada==1) {//se a coluna do heroi for a mesma que a da mumia
+                if (enemy.isInSameColumn(hero) || scorpionparado==1) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemy.getLine() > hero.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemy.getLine() > 2) {
                             if (matrix[enemy.getLine() - 1][enemy.getColumn()] != '-' && matrix[enemy.getLine() - 1][enemy.getColumn()] != '=') {
