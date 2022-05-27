@@ -102,6 +102,7 @@ public class MummyMazeState extends State implements Cloneable {
                 firePuzzleChanged(null);
             }
         }
+
         if(hero.equals(key)){
             Key();
         }
@@ -121,6 +122,7 @@ public class MummyMazeState extends State implements Cloneable {
                 whiteMummy = null;//??
             }
         }
+
            if (enemies.contains(whiteMummy) && enemies.contains(scorpion) && whiteMummy != null && scorpion != null) {
                if (whiteMummy.equals(scorpion)) {
                    enemies.remove(whiteMummy);
@@ -141,17 +143,25 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
             if(enemies.contains(whiteMummy2) && enemies.contains(scorpion) && whiteMummy2 != null && scorpion != null) {
+         /*       if(!whiteMummy2.equals(trap) && !scorpion.equals(trap) && trap != null){
+                    matrix[trap.getLine()][trap.getColumn()] = 'A';
+                }*/
                 if (scorpion.equals(whiteMummy2)) {
                     enemies.remove(whiteMummy2);
                     whiteMummy2 = null;//??
                 }
             }
+            if(key != null) {
+                MostrarKey();
+            }
+        if(trap != null) {
+            MostrarTrap();
+        }
 
     }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
         if(!isDead()) {
-            //HasKey();
             if (hero.getLine() > 1) {
                 if (matrix[hero.getLine() - 1][hero.getColumn()] != '-' && matrix[hero.getLine()-1][hero.getColumn()] != '=') {
                     return true;
@@ -163,7 +173,6 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveRight() {
         if(!isDead()) {
-            //HasKey();
             if (hero.getColumn() != matrix.length - 2) {
                 if (matrix[hero.getLine()][hero.getColumn() + 1] != '|' && matrix[hero.getLine()][hero.getColumn()+1] != '"') {
                     return true;
@@ -175,7 +184,6 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveDown() {
         if(!isDead() ) {
-            //HasKey();
             if (hero.getLine() != matrix.length - 2) {
                 if (matrix[hero.getLine() + 1][hero.getColumn()] != '-' && matrix[hero.getLine()+1][hero.getColumn()] != '=') {
                     return true;
@@ -187,7 +195,6 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean canMoveLeft() {
         if(!isDead()) {
-            //HasKey();
             if (hero.getColumn() > 1) {
                 if (matrix[hero.getLine()][hero.getColumn() - 1] != '|' && matrix[hero.getLine()][hero.getColumn()-1] != '"') {
                     return true;
@@ -310,6 +317,77 @@ public class MummyMazeState extends State implements Cloneable {
 
         return tilesDistances;
     }*/
+
+    public void MostrarKey(){
+         if(hero != null){
+            if(hero.equals(key)) {
+                matrix[hero.getLine()][hero.getColumn()] = 'H';
+            }
+        }
+        else if(whiteMummy != null){
+            if(whiteMummy.equals(key)) {
+                matrix[whiteMummy.getLine()][whiteMummy.getColumn()] = 'M';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(whiteMummy2 != null){
+            if(whiteMummy2.equals(key)) {
+                matrix[whiteMummy2.getLine()][whiteMummy2.getColumn()] = 'M';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(redMummy != null){
+            if(redMummy.equals(key)) {
+                matrix[redMummy.getLine()][redMummy.getColumn()] = 'V';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(scorpion != null){
+            if(scorpion.equals(key)) {
+                matrix[scorpion.getLine()][scorpion.getColumn()] = 'E';
+                firePuzzleChanged(null);
+            }
+        }else{
+            matrix[key.getLine()][key.getColumn()] = 'C';
+        }
+        firePuzzleChanged(null);
+    }
+
+    public void MostrarTrap(){
+        if(hero != null){
+            if(hero.equals(trap)) {
+                matrix[hero.getLine()][hero.getColumn()] = 'T';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(whiteMummy != null){
+            if(whiteMummy.equals(trap)) {
+                matrix[whiteMummy.getLine()][whiteMummy.getColumn()] = 'M';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(whiteMummy2 != null){
+            if(whiteMummy2.equals(trap)) {
+                matrix[whiteMummy2.getLine()][whiteMummy2.getColumn()] = 'M';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(redMummy != null){
+            if(redMummy.equals(trap)) {
+                matrix[redMummy.getLine()][redMummy.getColumn()] = 'V';
+                firePuzzleChanged(null);
+            }
+        }
+        else if(scorpion != null){
+            if(scorpion.equals(trap)) {
+                matrix[scorpion.getLine()][scorpion.getColumn()] = 'E';
+                firePuzzleChanged(null);
+            }
+        }else{
+            matrix[trap.getLine()][trap.getColumn()] = 'T';
+        }
+        firePuzzleChanged(null);
+    }
 
     public char[][] getMatrix() {
         return matrix;
