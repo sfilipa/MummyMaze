@@ -143,9 +143,6 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
             if(enemies.contains(whiteMummy2) && enemies.contains(scorpion) && whiteMummy2 != null && scorpion != null) {
-         /*       if(!whiteMummy2.equals(trap) && !scorpion.equals(trap) && trap != null){
-                    matrix[trap.getLine()][trap.getColumn()] = 'A';
-                }*/
                 if (scorpion.equals(whiteMummy2)) {
                     enemies.remove(whiteMummy2);
                     whiteMummy2 = null;//??
@@ -154,7 +151,7 @@ public class MummyMazeState extends State implements Cloneable {
             if(key != null) {
                 MostrarKey();
             }
-        if(trap != null) {
+       if(trap != null) {
             MostrarTrap();
         }
 
@@ -269,7 +266,6 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean chegouASaida() {
         if(matrix[hero.getLine()][hero.getColumn()-1] == 'S' || matrix[hero.getLine()][hero.getColumn()+1] == 'S' || matrix[hero.getLine()-1][hero.getColumn()] == 'S' || matrix[hero.getLine()+1][hero.getColumn()] == 'S') {
-        //if(hero.equals(exit)){
             return true;
         }
         return false;
@@ -319,74 +315,84 @@ public class MummyMazeState extends State implements Cloneable {
     }*/
 
     public void MostrarKey(){
-         if(hero != null){
+        if(hero != null){
             if(hero.equals(key)) {
                 matrix[hero.getLine()][hero.getColumn()] = 'H';
+                firePuzzleChanged(null);
+                return;
             }
         }
-        else if(whiteMummy != null){
+        if(whiteMummy != null){
             if(whiteMummy.equals(key)) {
                 matrix[whiteMummy.getLine()][whiteMummy.getColumn()] = 'M';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(whiteMummy2 != null){
+        if(whiteMummy2 != null){
             if(whiteMummy2.equals(key)) {
                 matrix[whiteMummy2.getLine()][whiteMummy2.getColumn()] = 'M';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(redMummy != null){
+        if(redMummy != null){
             if(redMummy.equals(key)) {
                 matrix[redMummy.getLine()][redMummy.getColumn()] = 'V';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(scorpion != null){
-            if(scorpion.equals(key)) {
+        if(scorpion != null) {
+            if (scorpion.equals(key)) {
                 matrix[scorpion.getLine()][scorpion.getColumn()] = 'E';
                 firePuzzleChanged(null);
+                return;
             }
-        }else{
-            matrix[key.getLine()][key.getColumn()] = 'C';
         }
+        matrix[key.getLine()][key.getColumn()] = 'C';
         firePuzzleChanged(null);
     }
 
     public void MostrarTrap(){
         if(hero != null){
             if(hero.equals(trap)) {
-                matrix[hero.getLine()][hero.getColumn()] = 'T';
+                matrix[hero.getLine()][hero.getColumn()] = 'A';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(whiteMummy != null){
+        if(whiteMummy != null){
             if(whiteMummy.equals(trap)) {
                 matrix[whiteMummy.getLine()][whiteMummy.getColumn()] = 'M';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(whiteMummy2 != null){
+        if(whiteMummy2 != null){
             if(whiteMummy2.equals(trap)) {
                 matrix[whiteMummy2.getLine()][whiteMummy2.getColumn()] = 'M';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(redMummy != null){
+        if(redMummy != null){
             if(redMummy.equals(trap)) {
                 matrix[redMummy.getLine()][redMummy.getColumn()] = 'V';
                 firePuzzleChanged(null);
+                return;
             }
         }
-        else if(scorpion != null){
-            if(scorpion.equals(trap)) {
+        if(scorpion != null) {
+            if (scorpion.equals(trap)) {
                 matrix[scorpion.getLine()][scorpion.getColumn()] = 'E';
                 firePuzzleChanged(null);
+                return;
             }
-        }else{
-            matrix[trap.getLine()][trap.getColumn()] = 'T';
         }
+        matrix[trap.getLine()][trap.getColumn()] = 'A';
         firePuzzleChanged(null);
+
     }
 
     public char[][] getMatrix() {

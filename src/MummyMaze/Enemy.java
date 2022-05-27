@@ -43,11 +43,16 @@ public class Enemy {
                 //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
                 mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
+                mumiaparada =0;
+                mumiaparada2=0;
+                redMummyparado=0;
+
             }
         }
         if(tipoInimigo == SCORPION){ //apenas 1 movimento
             //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
+            scorpionparado=0;
         }
     }
 
@@ -61,72 +66,27 @@ public class Enemy {
                     matrix[enemy.getLine()][enemy.getColumn()] = '.';
                     enemy.setLine(hero.getLine());
                     enemy.setColumn(hero.getColumn());
-                    if(tipoInimigo == WHITEMUMMY && check == 1) {
-                        mumiaparada = 0;
-                    }else if(tipoInimigo == WHITEMUMMY && check == 2){
-                        mumiaparada2 =0;
-                    }else if(tipoInimigo == SCORPION){
-                        scorpionparado =0;
-                    }else if(tipoInimigo == REDMUMMY){
-                        redMummyparado =0;
-                    }
                 }
                 break;
             case "cima":
                 matrix[enemy.getLine() - 2][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setLine(enemy.getLine()-2);
-                if(tipoInimigo == WHITEMUMMY && check == 1) {
-                    mumiaparada = 0;
-                }else if(tipoInimigo == WHITEMUMMY && check == 2){
-                        mumiaparada2 =0;
-                }else if(tipoInimigo == SCORPION){
-                    scorpionparado =0;
-                }else if(tipoInimigo == REDMUMMY){
-                    redMummyparado =0;
-                }
                 break;
             case "baixo":
                 matrix[enemy.getLine() + 2][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setLine(enemy.getLine()+2);
-                if(tipoInimigo == WHITEMUMMY && check == 1) {
-                    mumiaparada = 0;
-                }else if(tipoInimigo == WHITEMUMMY && check == 2){
-                    mumiaparada2 =0;
-                }else if(tipoInimigo == SCORPION){
-                    scorpionparado =0;
-                }else if(tipoInimigo == REDMUMMY){
-                    redMummyparado =0;
-                }
                 break;
             case "esq":
                 matrix[enemy.getLine()][enemy.getColumn() -2] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setColumn(enemy.getColumn()-2);
-                if(tipoInimigo == WHITEMUMMY && check == 1) {
-                    mumiaparada = 0;
-                }else if(tipoInimigo == WHITEMUMMY && check == 2){
-                    mumiaparada2 =0;
-                }else if(tipoInimigo == SCORPION){
-                    scorpionparado =0;
-                }else if(tipoInimigo == REDMUMMY){
-                    redMummyparado =0;
-                }
                 break;
             case "dir":
                 matrix[enemy.getLine()][enemy.getColumn() + 2] = matrix[enemy.getLine()][enemy.getColumn()];
                 matrix[enemy.getLine()][enemy.getColumn()] = '.';
                 enemy.setColumn(enemy.getColumn()+2);
-                if(tipoInimigo == WHITEMUMMY && check == 1) {
-                    mumiaparada = 0;
-                }else if(tipoInimigo == WHITEMUMMY && check == 2){
-                    mumiaparada2 =0;
-                }else if(tipoInimigo == SCORPION){
-                    scorpionparado =0;
-                }else if(tipoInimigo == REDMUMMY){
-                    redMummyparado =0;
-                }
                 break;
             case "nao":
                 matrix[enemy.getLine()][enemy.getColumn()] = matrix[enemy.getLine()][enemy.getColumn()];
