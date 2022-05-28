@@ -103,17 +103,31 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
 
+
         if(hero.equals(key)){
             Key();
         }
         for (Enemy enemy : enemies) {
             if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
-
+                for (int i = 0; i < enemies.size(); i++){
+                    enemies.remove(redMummy);
+                }
             }
-
-
+            if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
+                for (int i = 0; i < enemies.size(); i++){
+                    enemies.remove(whiteMummy);
+                }
+            }
+            if (enemy.getTipoInimigo() == EnemyType.SCORPION) {
+                for (int i = 0; i < enemies.size(); i++){
+                    enemies.remove(scorpion);
+                }
+            }
         }
-        if (enemies.contains(whiteMummy) && enemies.contains(redMummy)) {
+       /* if(hero.equals(scorpion)){
+            isDead();
+        }*/
+        /*if (enemies.contains(whiteMummy) && enemies.contains(redMummy)) {
             if (whiteMummy.equals(redMummy)) {
                 enemies.remove(whiteMummy);
                 whiteMummy = null;//??
@@ -147,20 +161,20 @@ public class MummyMazeState extends State implements Cloneable {
                 enemies.remove(whiteMummy2);
                 whiteMummy2 = null;//??
             }
-        }
+        }*/
 
-        if(enemies.contains(whiteMummy2) && enemies.contains(scorpion)) {
+        /*if(enemies.contains(whiteMummy2) && enemies.contains(scorpion)) {
             if (scorpion.equals(whiteMummy2)) {
                     enemies.remove(whiteMummy2);
                     whiteMummy2 = null;//??
                 }
-            }
-           /* if(key != null) {
-                MostrarKey();
-            }
+            }*/
+        if(key != null) {
+            MostrarKey();
+        }
        if(trap != null) {
             MostrarTrap();
-        }*/
+        }
 
     }
 
@@ -210,6 +224,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean isDead(){
         if(hero.equals(trap) || hero.equals(whiteMummy) || hero.equals(whiteMummy2)|| hero.equals(redMummy) || hero.equals(scorpion)){
+            System.out.println("MORREEEE");
             return true;
         }
         return false;

@@ -143,7 +143,7 @@ public class Enemy {
                         }
                     }
                 } else {
-                    if (enemyCell.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                    if (enemyCell.getColumn() != matrix.length - 1) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
                         if (matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '=') {
                             return "baixo";
                         }
@@ -176,7 +176,7 @@ public class Enemy {
                             }
                         }
                     } else {
-                        if (enemyCell.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                        if (enemyCell.getColumn() != matrix.length - 1) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
                             if (matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '=') {
                                 return "baixo";
                             }
@@ -276,7 +276,7 @@ public class Enemy {
                         }
                     }
                 } else {
-                    if (enemyCell.getColumn() != matrix.length - 2) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
+                    if (enemyCell.getColumn() != matrix.length - 1) {//Se a mumia tiver á esquerda do heroi, tem de se mover para a direita
                         if (matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() +1][enemyCell.getColumn()] != '=') {
                             return "baixo";
                         }
