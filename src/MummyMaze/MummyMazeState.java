@@ -224,7 +224,6 @@ public class MummyMazeState extends State implements Cloneable {
 
     public boolean isDead(){
         if(hero.equals(trap) || hero.equals(whiteMummy) || hero.equals(whiteMummy2)|| hero.equals(redMummy) || hero.equals(scorpion)){
-            System.out.println("MORREEEE");
             return true;
         }
         return false;

@@ -132,7 +132,7 @@ public class Enemy {
                             }
                         }
                     }else {
-                        if (enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                        if (enemyCell.isInSameColumn(heroCell) && enemyCell.isInSameLine(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
                             return "morreu";
                         }
                     }
@@ -165,7 +165,7 @@ public class Enemy {
                             }
                         }
                     }else {
-                        if (enemyCell.isInSameColumn(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
+                        if (enemyCell.isInSameColumn(heroCell) && enemyCell.isInSameLine(heroCell)) {//Ao chegar aqui, ja apanhou o heroi, pq esta na mesma linha e coluna dele
                             return "morreu";
                         }
                     }
@@ -251,7 +251,7 @@ public class Enemy {
                         }
                     }
                 }
-                if (enemyCell.isInSameLine(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
+                /*if (enemyCell.isInSameLine(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemyCell.getColumn() > heroCell.getColumn()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
                         if (enemyCell.getColumn() > 1) {
                             if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != ')') {
@@ -281,7 +281,7 @@ public class Enemy {
                             return "baixo";
                         }
                     }
-                }
+                }*/
                 break;
         }
         return "nao"; //caso ninguém se possa mover
