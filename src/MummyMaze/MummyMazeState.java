@@ -243,7 +243,11 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void moveUp() {
-        matrix[hero.getLine()][hero.getColumn()] = '.';
+        if(hero.equals(key) && key != null){
+            matrix[hero.getLine()][hero.getColumn()] = 'C';
+        }else {
+            matrix[hero.getLine()][hero.getColumn()] = '.';
+        }
         if (hero.getLine() == 1) {
             hero.setLine(hero.getLine() - 1);
         } else {
@@ -254,7 +258,11 @@ public class MummyMazeState extends State implements Cloneable {
 
 
     public void moveRight() {
-        matrix[hero.getLine()][hero.getColumn()] = '.';
+        if(hero.equals(key) && key != null){
+            matrix[hero.getLine()][hero.getColumn()] = 'C';
+        }else {
+            matrix[hero.getLine()][hero.getColumn()] = '.';
+        }
 
         if (hero.getColumn() == matrix.length - 2) {
             hero.setColumn(hero.getColumn() + 1);
@@ -266,7 +274,11 @@ public class MummyMazeState extends State implements Cloneable {
 
 
     public void moveDown() {
-        matrix[hero.getLine()][hero.getColumn()] = '.';
+        if(hero.equals(key) && key != null){
+            matrix[hero.getLine()][hero.getColumn()] = 'C';
+        }else {
+            matrix[hero.getLine()][hero.getColumn()] = '.';
+        }
         if (hero.getLine() == matrix.length - 2) {
             hero.setLine(hero.getLine() + 1);
         } else {
@@ -276,7 +288,11 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void moveLeft() {
-        matrix[hero.getLine()][hero.getColumn()] = '.';
+        if(hero.equals(key) && key != null){
+            matrix[hero.getLine()][hero.getColumn()] = 'C';
+        }else {
+            matrix[hero.getLine()][hero.getColumn()] = '.';
+        }
         if (hero.getColumn() == 1) {
             hero.setColumn(hero.getColumn() - 1);
         } else {
