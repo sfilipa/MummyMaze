@@ -12,6 +12,9 @@ public class Enemy {
     public EnemyType getTipoInimigo() {
         return tipoInimigo;
     }
+    public Cell getCellEnemy() {
+        return enemyCell;
+    }
 
     public Enemy(EnemyType tipoInimigo, Cell enemy) {
         this.enemyCell = enemy;
@@ -23,19 +26,11 @@ public class Enemy {
         matrix = mummyMazeState.getMatrix();
 
         if(tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY){ //2 movimentos
-            if(mummyMazeState.getNaoMexeu() >= 2){//PERGUNTAR AO STOR
-                //mummyMazeState.firePuzzleChanged(null);
-                movimentosInimigos();
-                mummyMazeState.firePuzzleChanged(null);
-                //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
-                mummyMazeState.setNaoMexeu(0);
-            }else {
                 //mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
                 //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
                 mummyMazeState.firePuzzleChanged(null);
                 movimentosInimigos();
-            }
         }
         if(tipoInimigo == SCORPION){ //apenas 1 movimento
             //mummyMazeState.firePuzzleChanged(null);

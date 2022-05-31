@@ -29,7 +29,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
         //Lista de estado sucessores no máx 5
         ArrayList<MummyMazeState> successors = new ArrayList<>(5);
-
+        if (!state.isDead()) {
             //para cada ação disponivel
             for (Action action : actions) {
                 //  se a ação for válida
@@ -39,11 +39,10 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
                     //executar a ação sobre o novo estado
                     successor.executeAction(action);
                     //      adicionar o novo estado à lista de sucessores
-                    if(!successor.isDead()) {
-                        successors.add(successor);
-                    }
+                    successors.add(successor);
                 }
             }
+        }
 
         return successors; //devolver a lista de estados sucessores
     }
