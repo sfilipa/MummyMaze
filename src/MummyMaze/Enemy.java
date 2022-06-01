@@ -281,4 +281,6 @@ public class Enemy {
         }
         return "nao"; //caso ninguém se possa mover
     }
+
+
 }
