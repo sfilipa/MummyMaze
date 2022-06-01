@@ -75,104 +75,92 @@ public class MummyMazeState extends State implements Cloneable {
 
         firePuzzleChanged(null);
         if (!chegouASaida()) {//no nivel 5 a mumia comia o heroi depois de ele chegar a saida ent pus isto aqui
-            for (Enemy e : enemies) {
-                e.move(this);
-                firePuzzleChanged(null);
+            for (int i = 0; i < enemies.size(); i++) {
+                Enemy enemy = enemies.get(i);
+                enemy.move(this);
+                if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
+                    for (int j = 0; j < enemies.size(); j++) {
+                        Enemy e = enemies.get(j);
+                        if (enemy != e) {
+                            if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(e);
+                                }
+                            }
+                            if (e.getTipoInimigo() == EnemyType.REDMUMMY) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(e);
+                                }
+                            }
+                            if (e.getTipoInimigo() == EnemyType.SCORPION) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(enemy);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
+                    for (int j = 0; j < enemies.size(); j++) {
+                        Enemy e = enemies.get(j);
+
+                        if (enemy != e) {
+                            if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(e);
+                                }
+                            }
+                            if (e.getTipoInimigo() == EnemyType.REDMUMMY) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(enemy);
+                                }
+                            }
+                            if (e.getTipoInimigo() == EnemyType.SCORPION) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(enemy);
+                                }
+                            }
+                        }
+                    }
+
+                }
+                if (enemy.getTipoInimigo() == EnemyType.SCORPION) {
+                    for (int j = 0; j < enemies.size(); j++) {
+                        Enemy e = enemies.get(j);
+                        if (enemy != e) {
+                            if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(e);
+                                }
+                            }
+                            if (e.getTipoInimigo() == EnemyType.REDMUMMY) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(e);
+                                }
+                            }
+                            if (e.getTipoInimigo() == EnemyType.SCORPION) {
+                                if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                    enemies.remove(enemy);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         for (int i = 0; i < enemies.size(); i++) {
             Enemy enemy = enemies.get(i);
-            if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
-                for (int j = 0; j < enemies.size(); j++) {
-                    Enemy e = enemies.get(j);
-                    if (enemy != e) {
-                        if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                        if (e.getTipoInimigo() == EnemyType.REDMUMMY) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                        if (e.getTipoInimigo() == EnemyType.SCORPION) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                        if (e.getCellEnemy() == getCellHero()) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                    }
-                }
-            }
-            if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
-                for (int j = 0; j < enemies.size(); j++) {
-                    Enemy e = enemies.get(j);
-
-                    if (enemy != e) {
-                        if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                        if (e.getTipoInimigo() == EnemyType.REDMUMMY) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(enemy);
-                            }
-                        }
-                        if (e.getTipoInimigo() == EnemyType.SCORPION) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(enemy);
-                            }
-                        }
-                    }
-                }
-
-            }
-            if (enemy.getTipoInimigo() == EnemyType.SCORPION) {
-                for (int j = 0; j < enemies.size(); j++) {
-                    Enemy e = enemies.get(j);
-                    if (enemy != e) {
-                        if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                        if (e.getTipoInimigo() == EnemyType.REDMUMMY) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
-                            }
-                        }
-                        if (e.getTipoInimigo() == EnemyType.SCORPION) {
-                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(enemy);
-                            }
-                        }
-                    }
-                }
-            }
             if (trap != null) {
-                if (!enemy.getCellEnemy().equals(trap)) {
-                    matrix[trap.getLine()][trap.getColumn()] = 'A';
+                if (enemy.getCellEnemy().equals(trap)) {
+                    matrix[trap.getLine()][trap.getColumn()] = enemy.getSymbol();
                     firePuzzleChanged(null);
+                    return;
+                }else{
+                    matrix[trap.getLine()][trap.getColumn()] = 'A';
                 }
             }
         }
-
-        /*if (key != null) {
-            MostrarKey();
-            firePuzzleChanged(null);
-        }
-        if (trap != null && !isDead()) {
-            MostrarTrap();
-            firePuzzleChanged(null);
-        }*/
-
     }
 
     public boolean canMoveUp() {//pode mover-se se não tiver parede nem mumia nem nd do genero
@@ -270,7 +258,6 @@ public class MummyMazeState extends State implements Cloneable {
         }else {
             matrix[hero.getLine()][hero.getColumn()] = '.';
         }
-
         if (hero.getColumn() == matrix.length - 2) {
             hero.setColumn(hero.getColumn() + 1);
         } else {
@@ -354,32 +341,6 @@ public class MummyMazeState extends State implements Cloneable {
         return min;
     }
 
-    /*public void MostrarKey() {
-        if (hero != null) {
-            if (hero.equals(key)) {
-                matrix[hero.getLine()][hero.getColumn()] = 'H';
-                return;
-            }
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            Enemy enemy = enemies.get(i);
-            if (enemy.equals(key)) {
-                if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
-                    matrix[enemy.getCellEnemy().getLine()][enemy.getCellEnemy().getColumn()] = 'V';
-                    return;
-                }
-                if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
-                    matrix[enemy.getCellEnemy().getLine()][enemy.getCellEnemy().getColumn()] = 'M';
-                    return;
-                }
-                if (enemy.getTipoInimigo() == EnemyType.SCORPION) {
-                    matrix[enemy.getCellEnemy().getLine()][enemy.getCellEnemy().getColumn()] = 'E';
-                    return;
-                }
-            }
-            matrix[key.getLine()][key.getColumn()] = 'C';
-        }
-    }*/
 
     public char[][] getMatrix() {
         return matrix;
@@ -388,13 +349,9 @@ public class MummyMazeState extends State implements Cloneable {
     public Cell getCellHero() {
         return hero;
     }
-
-    /*public int getTileValue(int line, int column) {
-        if (!isValidPosition(line, column)) {
-            throw new IndexOutOfBoundsException("Invalid position!");
-        }
-        return matrix[line][column];
-    }*/
+    public Cell getCellKey() {
+        return key;
+    }
 
     public boolean isValidPosition(int line, int column) {
         return line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length;
