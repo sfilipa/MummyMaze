@@ -98,7 +98,12 @@ public class MummyMazeState extends State implements Cloneable {
                         }
                         if (e.getTipoInimigo() == EnemyType.SCORPION) {
                             if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(enemy);
+                                enemies.remove(e);
+                            }
+                        }
+                        if (e.getCellEnemy() == getCellHero()) {
+                            if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
+                                enemies.remove(e);
                             }
                         }
                     }
@@ -107,6 +112,7 @@ public class MummyMazeState extends State implements Cloneable {
             if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
                 for (int j = 0; j < enemies.size(); j++) {
                     Enemy e = enemies.get(j);
+
                     if (enemy != e) {
                         if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
                             if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
@@ -312,47 +318,14 @@ public class MummyMazeState extends State implements Cloneable {
 
 
     //HEURISTICAS
-    //numero de quadriculas
 
-    public double computeNumberOfSquares(MummyMazeState finalState) {
-        //devolve o numero de peças fora do sitio
-        double numberOfSquares = 0;
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] != 0) {
-                    if (matrix[i][j] != finalState.matrix[i][j]) {
-                        numberOfSquares += 1;
-                    }
-                }
-            }
-        }
-
-        return numberOfSquares;
-    }
-    /*
-    public double computeTileDistances(MummyMazeState finalState) {
-
-
-        //sum of manhattan distances between where the tiles are and where they should
+    public double computeTileDistances() {
 
         double tilesDistances = 0;
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                //diferença absoluta entre a linha onde está e a linha;
-                //onde devia estar + a diferença absoluta entre a coluna onde está e a coluna onde devia estar
-
-                //para ir buscar a linha onde está, temos de ir buscar a matriz -> matrix[i][j]
-                if(matrix[i][j] != 0) {
-                    tilesDistances += Math.abs(i - linesfinalMatrix[matrix[i][j]])
-                            + Math.abs(j - colsfinalMatrix[matrix[i][j]]);
-                }
-            }
-        }
-
-        return tilesDistances;
-    }*/
+        return tilesDistances = Math.abs(hero.getLine() - exit.getLine())
+                + Math.abs(hero.getColumn() - exit.getColumn());
+    }
 
     /*public void MostrarKey() {
         if (hero != null) {

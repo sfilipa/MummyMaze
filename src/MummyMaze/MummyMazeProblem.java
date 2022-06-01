@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MummyMazeProblem extends Problem<MummyMazeState> {
 
-    //private MummyMazeState goalState; //para o isGoal method
+    private MummyMazeState goalState; //para o isGoal method
 
     public MummyMazeProblem(MummyMazeState initialState) {
         super(initialState, new ArrayList<>(5)); //deve ser sempre a primeira linha num construtor
@@ -60,9 +60,9 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
     }
 
-    /*public MummyMazeState getGoalState() {
+    public MummyMazeState getGoalState() {
         return goalState;
-    }
+    }/*
 
     public void setGoalState(MummyMazeState goalState) {
         this.goalState = goalState;
