@@ -5,6 +5,7 @@ import agent.State;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MummyMazeState extends State implements Cloneable {
@@ -319,12 +320,38 @@ public class MummyMazeState extends State implements Cloneable {
 
     //HEURISTICAS
 
-    public double computeTileDistances() {
+    public double computeHeroToExitDistance() {
 
-        double tilesDistances = 0;
+        double HeroToExitDistance = 0;
 
-        return tilesDistances = Math.abs(hero.getLine() - exit.getLine())
+        return HeroToExitDistance = Math.abs(hero.getLine() - exit.getLine())
                 + Math.abs(hero.getColumn() - exit.getColumn());
+    }
+
+    public double computeEnemyDistances() {
+
+        double enemyDistance = 0;
+
+        List<Double> listEnemyDistances = new ArrayList<>();
+
+        double x = -1;
+
+        for (Enemy enemy: enemies) {
+            enemyDistance = Math.abs(hero.getLine() - enemy.getCellEnemy().getLine())
+                    + Math.abs(hero.getColumn() - enemy.getCellEnemy().getColumn());
+            enemyDistance = enemyDistance * x;
+            listEnemyDistances.add(enemyDistance);
+        }
+
+        double min = Collections.min(listEnemyDistances);
+
+        for (int i = 1; i < listEnemyDistances.size(); i++) {
+            if (listEnemyDistances.get(i) < min) {
+                min = listEnemyDistances.get(i);
+            }
+        }
+
+        return min;
     }
 
     /*public void MostrarKey() {

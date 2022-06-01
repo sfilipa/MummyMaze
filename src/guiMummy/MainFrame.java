@@ -147,9 +147,8 @@ public class MainFrame extends JFrame {
     }
 
     public void comboBoxHeuristics_ActionPerformed(ActionEvent e) {
-        /*int index = comboBoxHeuristics.getSelectedIndex();
-        agent.setHeuristic((Heuristic) comboBoxHeuristics.getItemAt(index));*/
-        comboBoxHeuristics = new JComboBox(agent.getHeuristicsArray());
+        int index = comboBoxHeuristics.getSelectedIndex();
+        agent.setHeuristic((Heuristic) comboBoxHeuristics.getItemAt(index));
         gameArea.setMummyMaze(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
