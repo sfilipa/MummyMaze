@@ -98,7 +98,7 @@ public class MummyMazeState extends State implements Cloneable {
                         }
                         if (e.getTipoInimigo() == EnemyType.SCORPION) {
                             if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                enemies.remove(e);
+                                enemies.remove(enemy);
                             }
                         }
                         if (e.getCellEnemy() == getCellHero()) {
@@ -163,14 +163,6 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
 
-        /*if (key != null) {
-            MostrarKey();
-            firePuzzleChanged(null);
-        }
-        if (trap != null && !isDead()) {
-            MostrarTrap();
-            firePuzzleChanged(null);
-        }*/
 
     }
 
@@ -269,7 +261,6 @@ public class MummyMazeState extends State implements Cloneable {
         }else {
             matrix[hero.getLine()][hero.getColumn()] = '.';
         }
-
         if (hero.getColumn() == matrix.length - 2) {
             hero.setColumn(hero.getColumn() + 1);
         } else {
@@ -327,33 +318,6 @@ public class MummyMazeState extends State implements Cloneable {
                 + Math.abs(hero.getColumn() - exit.getColumn());
     }
 
-    /*public void MostrarKey() {
-        if (hero != null) {
-            if (hero.equals(key)) {
-                matrix[hero.getLine()][hero.getColumn()] = 'H';
-                return;
-            }
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            Enemy enemy = enemies.get(i);
-            if (enemy.equals(key)) {
-                if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
-                    matrix[enemy.getCellEnemy().getLine()][enemy.getCellEnemy().getColumn()] = 'V';
-                    return;
-                }
-                if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
-                    matrix[enemy.getCellEnemy().getLine()][enemy.getCellEnemy().getColumn()] = 'M';
-                    return;
-                }
-                if (enemy.getTipoInimigo() == EnemyType.SCORPION) {
-                    matrix[enemy.getCellEnemy().getLine()][enemy.getCellEnemy().getColumn()] = 'E';
-                    return;
-                }
-            }
-            matrix[key.getLine()][key.getColumn()] = 'C';
-        }
-    }*/
-
     public char[][] getMatrix() {
         return matrix;
     }
@@ -361,13 +325,6 @@ public class MummyMazeState extends State implements Cloneable {
     public Cell getCellHero() {
         return hero;
     }
-
-    /*public int getTileValue(int line, int column) {
-        if (!isValidPosition(line, column)) {
-            throw new IndexOutOfBoundsException("Invalid position!");
-        }
-        return matrix[line][column];
-    }*/
 
     public boolean isValidPosition(int line, int column) {
         return line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length;
