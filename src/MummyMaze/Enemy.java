@@ -159,7 +159,7 @@ public class Enemy {
                         }
                     } else if (enemyCell.getColumn() < heroCell.getColumn()) {//se a mumia tiver
                         if (enemyCell.getColumn() != matrix.length - 2) {
-                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '"') {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '"') {
                                 return "dir";
                             }
                         }
@@ -192,7 +192,7 @@ public class Enemy {
                         }
                     } else if (enemyCell.getColumn() < heroCell.getColumn()) {//se a mumia tiver
                         if (enemyCell.getColumn() != matrix.length - 2) {
-                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '"') {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '"') {
                                 return "dir";
                             }
                         }
@@ -289,7 +289,7 @@ public class Enemy {
                         }
                     } else if (enemyCell.getColumn() < heroCell.getColumn()) {//se a mumia tiver
                         if (enemyCell.getColumn() != matrix.length - 2) {
-                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '"') {
+                            if (matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() + 1] != '"') {
                                 return "dir";
                             }
                         }
