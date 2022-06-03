@@ -52,7 +52,6 @@ public class Enemy {
         keyCell = mummyMazeState.getCellKey();
 
         if (tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY) { //2 movimentos
-            //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
             mummyMazeState.VerifyThings(enemy);
             if(keyCell!=null) {
@@ -60,18 +59,11 @@ public class Enemy {
                     mummyMazeState.Key();
                 }
             }
-            //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);*/
             mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
         }
         if (tipoInimigo == SCORPION) { //apenas 1 movimento
-            //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
-        }
-        if(keyCell!=null) {
-            if (enemyCell.equals(keyCell)) {
-                mummyMazeState.Key();
-            }
         }
     }
 
@@ -79,9 +71,7 @@ public class Enemy {
         switch (canMove()) {//apenas faz os movimentos
             case "morreu":
                 if (!heroCell.equals(enemyCell)) {
-
                     matrix[heroCell.getLine()][heroCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
-
                     matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
 
                     enemyCell.setLine(heroCell.getLine());
