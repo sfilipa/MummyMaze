@@ -108,11 +108,11 @@ public class MummyMazeState extends State implements Cloneable {
 
                 VerifyThings(enemy);
 
-                if(key!=null) {
+                /*if(key!=null) {
                     if (enemy.getCellEnemy().equals(key)) {
                        Key();
                     }
-                }
+                }*/
 
                 if (traps.size() != 0) {
                     for (Cell trap : traps) {
@@ -136,6 +136,11 @@ public class MummyMazeState extends State implements Cloneable {
         if (enemy.getTipoInimigo() == EnemyType.REDMUMMY) {
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy e = enemies.get(j);
+                if(key!=null) {
+                    if (enemy.getCellEnemy().equals(key)) {
+                        Key();
+                    }
+                }
                 if (enemy != e) {
 
                     if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
@@ -162,6 +167,11 @@ public class MummyMazeState extends State implements Cloneable {
         if (enemy.getTipoInimigo() == EnemyType.WHITEMUMMY) {
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy e = enemies.get(j);
+                if(key!=null) {
+                    if (enemy.getCellEnemy().equals(key)) {
+                        Key();
+                    }
+                }
 
                 if (enemy != e) {
                     if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
@@ -188,6 +198,11 @@ public class MummyMazeState extends State implements Cloneable {
         if (enemy.getTipoInimigo() == EnemyType.SCORPION) {
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy e = enemies.get(j);
+                if(key!=null) {
+                    if (enemy.getCellEnemy().equals(key)) {
+                        Key();
+                    }
+                }
                 if (enemy != e) {
 
                     if (e.getTipoInimigo() == EnemyType.WHITEMUMMY) {
