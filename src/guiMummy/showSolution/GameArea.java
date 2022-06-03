@@ -131,7 +131,7 @@ public class GameArea extends JPanel implements MummyMazeListener {
 	public void mummyMazeChanged(MummyMazeEvent pe) {
 		repaint();
 		try{
-			Thread.sleep(500); //velocidade de movimento do heroi
+			Thread.sleep(400); //velocidade de movimento do heroi
 		}catch(InterruptedException ignore){
 		}
 	}

@@ -36,7 +36,17 @@ public class Enemy {
         this.tipoInimigo = tipoInimigo;
     }
 
-    public void move(MummyMazeState mummyMazeState) {
+    public Enemy(Enemy enemy) {
+        this(enemy.tipoInimigo, enemy.enemyCell.clone());
+        if (enemy.heroCell != null) {
+            this.heroCell = enemy.heroCell.clone();
+        }
+        if (enemy.keyCell != null) {
+            this.keyCell = enemy.keyCell.clone();
+        }
+    }
+
+    public void move(MummyMazeState mummyMazeState, Enemy enemy) {
         heroCell = mummyMazeState.getCellHero();
         matrix = mummyMazeState.getMatrix();
         keyCell = mummyMazeState.getCellKey();
@@ -44,15 +54,24 @@ public class Enemy {
         if (tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY) { //2 movimentos
             //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
-            //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);
+            mummyMazeState.VerifyThings(enemy);
+            if(keyCell!=null) {
+                if (enemyCell.equals(keyCell)) {
+                    mummyMazeState.Key();
+                }
+            }
+            //mummyMazeState.setValueAt(enemy, lineEnemy, columnEnemy);*/
             mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
-            mummyMazeState.firePuzzleChanged(null);
         }
         if (tipoInimigo == SCORPION) { //apenas 1 movimento
             //mummyMazeState.firePuzzleChanged(null);
             movimentosInimigos();
-            mummyMazeState.firePuzzleChanged(null);
+        }
+        if(keyCell!=null) {
+            if (enemyCell.equals(keyCell)) {
+                mummyMazeState.Key();
+            }
         }
     }
 
@@ -62,7 +81,6 @@ public class Enemy {
                 if (!heroCell.equals(enemyCell)) {
 
                     matrix[heroCell.getLine()][heroCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
-
 
                     matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
 
@@ -316,5 +334,8 @@ public class Enemy {
         return "nao"; //caso ninguém se possa mover
     }
 
-
+    @Override
+    protected Enemy clone() {
+        return new Enemy(this);
+    }
 }
