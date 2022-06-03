@@ -11,6 +11,10 @@ public class Cell {
         this.column = column;
     }
 
+    public Cell(Cell cell) {
+        this(cell.line, cell.column);
+    }
+
     public void setLine(int line) {
         this.line = line;
     }
@@ -37,6 +41,10 @@ public class Cell {
         return false;
     }
 
+    @Override
+    protected Cell clone(){
+        return new Cell(this);
+    }
 
     @Override
     public boolean equals(Object o) {
