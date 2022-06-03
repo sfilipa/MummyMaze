@@ -250,7 +250,10 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean cannotMove() {
-        return !canMoveUp() && !canMoveRight() && !canMoveDown() && !canMoveLeft();
+        if(matrix[hero.getLine()-1][hero.getColumn()] != '-' && matrix[hero.getLine()-1][hero.getColumn()] != '=' && matrix[hero.getLine()+1][hero.getColumn()] != '-' && matrix[hero.getLine()+1][hero.getColumn()] != '=' && matrix[hero.getLine()][hero.getColumn()-1] != '|' && matrix[hero.getLine()][hero.getColumn()-1] != '"' && matrix[hero.getLine()][hero.getColumn()+1] != '|' && matrix[hero.getLine()][hero.getColumn()+1] != '"') {
+            return false;
+        }
+        return true;
     }
 
     public boolean isDead() {
