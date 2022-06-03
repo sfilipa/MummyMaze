@@ -66,8 +66,10 @@ public class MummyMazeState extends State implements Cloneable {
     public void executeAction(Action action) {
         action.execute(this);//método polimórfico - pode executar métodos diferentes consoante a action
 
-        if (hero.equals(key)) {
-            Key();
+        if(key!=null) {
+            if (hero.equals(key)) {
+                Key();
+            }
         }
 
         firePuzzleChanged(null);
@@ -137,7 +139,7 @@ public class MummyMazeState extends State implements Cloneable {
                             }
                             if (e.getTipoInimigo() == EnemyType.SCORPION) {
                                 if (e.getCellEnemy().equals(enemy.getCellEnemy())) {
-                                    enemies.remove(enemy);
+                                    enemies.remove(e);
                                 }
                             }
                         }
@@ -200,6 +202,16 @@ public class MummyMazeState extends State implements Cloneable {
         return matrix[hero.getLine()][hero.getColumn() - 1] == 'S';
     }
 
+    public boolean cannotMove() {  //acrescentado, quando o heroi não se mexe - mudar
+        if (matrix[hero.getLine()][hero.getColumn() - 1] == '|' || matrix[hero.getLine()][hero.getColumn() - 1] == '"' || matrix[hero.getLine()][hero.getColumn() + 1] == '|' || matrix[hero.getLine()][hero.getColumn() + 1] == '"') {
+            return true;
+        }
+        if (matrix[hero.getLine() - 1][hero.getColumn()] == '-' || matrix[hero.getLine() - 1][hero.getColumn()] == '=' || matrix[hero.getLine() + 1][hero.getColumn()] == '-' || matrix[hero.getLine() + 1][hero.getColumn()] == '=') {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isDead() {
         for (Enemy enemy : enemies) {
             if (enemy.getCellEnemy().equals(hero)) {
@@ -229,10 +241,6 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
 
-    }
-
-    public boolean cannotMove() {  //acrescentado, quando o heroi não se mexe - mudar
-        return false;
     }
 
     public void moveUp() {
