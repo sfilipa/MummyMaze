@@ -367,6 +367,36 @@ public class MummyMazeState extends State implements Cloneable {
                 + Math.abs(hero.getColumn() - exit.getColumn());
     }
 
+
+    public double computeHeroToTrapDistance() {
+        if (traps.size() > 0) {
+            double trapDistance = 0;
+
+            List<Double> listTrapDistances = new ArrayList<>();
+
+            double x = -1;
+
+            for (Cell trap : traps) {
+                trapDistance = Math.abs(hero.getLine() - trap.getLine())
+                        + Math.abs(hero.getColumn() - trap.getColumn());
+                trapDistance = trapDistance * x;
+                listTrapDistances.add(trapDistance);
+            }
+            double min = Collections.min(listTrapDistances);
+
+            for (int i = 1; i < listTrapDistances.size(); i++) {
+                if (listTrapDistances.get(i) < min) {
+                    min = listTrapDistances.get(i);
+                }
+            }
+
+            return min;
+        }
+        return 0;
+
+    }
+
+
     public double computeEnemyDistances() {
 
         double enemyDistance = 0;
@@ -392,7 +422,9 @@ public class MummyMazeState extends State implements Cloneable {
 
         return min;
     }
-
+    public List<Cell> getTraps() {
+        return this.traps;
+    }
 
     public char[][] getMatrix() {
         return matrix;
