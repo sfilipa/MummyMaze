@@ -1,11 +1,14 @@
 package MummyMaze;
 
+import java.util.List;
+
 import static MummyMaze.EnemyType.*;
 
 public class Enemy {
     private Cell enemyCell;
     private Cell heroCell;
     private Cell keyCell;
+    private List<Cell> doors;
 
     private EnemyType tipoInimigo;
     private char[][] matrix;
@@ -144,7 +147,7 @@ public class Enemy {
             case WHITEMUMMY:
                 if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
-                        if (enemyCell.getLine() > 2) {
+                        if (enemyCell.getLine() > 1) {
                             if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "cima";
                             }
@@ -162,7 +165,7 @@ public class Enemy {
                     }
                 } else if (enemyCell.getColumn() > heroCell.getColumn()) {//se a coluna do heroi não for a mesma que a da mumia
                     //Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
-                    if (enemyCell.getColumn() > 2) {
+                    if (enemyCell.getColumn() > 1) {
                         if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '"') {
                             return "esq";
                         }
@@ -274,7 +277,7 @@ public class Enemy {
             case SCORPION:
                 if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
                     if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
-                        if (enemyCell.getLine() > 2) {
+                        if (enemyCell.getLine() > 1) {
                             if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "cima";
                             }
@@ -292,7 +295,7 @@ public class Enemy {
                     }
                 } else if (enemyCell.getColumn() > heroCell.getColumn()) {//se a coluna do heroi não for a mesma que a da mumia
                     //Se a mumia tiver á direita do heroi, tem de se mover para a esquerda
-                    if (enemyCell.getColumn() > 2) {
+                    if (enemyCell.getColumn() > 1) {
                         if (matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '|' && matrix[enemyCell.getLine()][enemyCell.getColumn() - 1] != '"') {
                             return "esq";
                         }

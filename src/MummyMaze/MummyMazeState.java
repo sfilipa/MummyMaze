@@ -102,6 +102,12 @@ public class MummyMazeState extends State implements Cloneable {
 
                 VerifyThings(enemy);
 
+                /*if(key!=null) {
+                    if (enemy.getCellEnemy().equals(key)) {
+                       Key();
+                    }
+                }*/
+
                 if (traps.size() != 0) {
                     for (Cell trap : traps) {
                         if (enemy.getCellEnemy().equals(trap)) {
@@ -111,8 +117,10 @@ public class MummyMazeState extends State implements Cloneable {
                             matrix[trap.getLine()][trap.getColumn()] = 'A';
                         }
                     }
+
                 }
             }
+
             firePuzzleChanged(null);
         }
     }
@@ -166,7 +174,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean cannotMove() {
-        if (matrix[hero.getLine() - 1][hero.getColumn()] != '-' && matrix[hero.getLine() - 1][hero.getColumn()] != '=' && matrix[hero.getLine() + 1][hero.getColumn()] != '-' && matrix[hero.getLine() + 1][hero.getColumn()] != '=' && matrix[hero.getLine()][hero.getColumn() - 1] != '|' && matrix[hero.getLine()][hero.getColumn() - 1] != '"' && matrix[hero.getLine()][hero.getColumn() + 1] != '|' && matrix[hero.getLine()][hero.getColumn() + 1] != '"') {
+        if(matrix[hero.getLine()-1][hero.getColumn()] != '-' && matrix[hero.getLine()-1][hero.getColumn()] != '=' && matrix[hero.getLine()+1][hero.getColumn()] != '-' && matrix[hero.getLine()+1][hero.getColumn()] != '=' && matrix[hero.getLine()][hero.getColumn()-1] != '|' && matrix[hero.getLine()][hero.getColumn()-1] != '"' && matrix[hero.getLine()][hero.getColumn()+1] != '|' && matrix[hero.getLine()][hero.getColumn()+1] != '"') {
             return false;
         }
         return true;
@@ -343,7 +351,6 @@ public class MummyMazeState extends State implements Cloneable {
 
         return min;
     }
-
     public List<Cell> getTraps() {
         return this.traps;
     }
