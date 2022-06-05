@@ -55,18 +55,18 @@ public class Enemy {
         keyCell = mummyMazeState.getCellKey();
 
         if (tipoInimigo == WHITEMUMMY || tipoInimigo == REDMUMMY) { //2 movimentos
-            movimentosInimigos();
+            movimentosInimigos(mummyMazeState);
             mummyMazeState.VerifyThings(enemy);
 
             mummyMazeState.firePuzzleChanged(null);
-            movimentosInimigos();
+            movimentosInimigos(mummyMazeState);
         }
         if (tipoInimigo == SCORPION) { //apenas 1 movimento
-            movimentosInimigos();
+            movimentosInimigos(mummyMazeState);
         }
     }
 
-    public void movimentosInimigos() {
+    public void movimentosInimigos(MummyMazeState mummyMazeState){
         switch (canMove()) {//apenas faz os movimentos
             case "morreu":
                 if (!heroCell.equals(enemyCell)) {
@@ -86,6 +86,11 @@ public class Enemy {
                     matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
                 }
                 enemyCell.setLine(enemyCell.getLine() - 2);
+                if(keyCell!=null) {
+                    if (enemyCell.equals(keyCell)) {
+                        mummyMazeState.Key();
+                    }
+                }
                 break;
             case "baixo":
                 matrix[enemyCell.getLine() + 2][enemyCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
@@ -95,6 +100,11 @@ public class Enemy {
                     matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
                 }
                 enemyCell.setLine(enemyCell.getLine() + 2);
+                if(keyCell!=null) {
+                    if (enemyCell.equals(keyCell)) {
+                        mummyMazeState.Key();
+                    }
+                }
                 break;
             case "esq":
                 matrix[enemyCell.getLine()][enemyCell.getColumn() - 2] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
@@ -104,6 +114,11 @@ public class Enemy {
                     matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
                 }
                 enemyCell.setColumn(enemyCell.getColumn() - 2);
+                if(keyCell!=null) {
+                    if (enemyCell.equals(keyCell)) {
+                        mummyMazeState.Key();
+                    }
+                }
                 break;
             case "dir":
                 matrix[enemyCell.getLine()][enemyCell.getColumn() + 2] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
@@ -113,6 +128,11 @@ public class Enemy {
                     matrix[enemyCell.getLine()][enemyCell.getColumn()] = '.';
                 }
                 enemyCell.setColumn(enemyCell.getColumn() + 2);
+                if(keyCell!=null) {
+                    if (enemyCell.equals(keyCell)) {
+                        mummyMazeState.Key();
+                    }
+                }
                 break;
             case "nao":
                 matrix[enemyCell.getLine()][enemyCell.getColumn()] = matrix[enemyCell.getLine()][enemyCell.getColumn()];
