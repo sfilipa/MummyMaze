@@ -3,10 +3,7 @@ package MummyMaze;
 import agent.Action;
 import agent.State;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class MummyMazeState extends State implements Cloneable {
     //cleneable é copiar o objeto
@@ -132,6 +129,7 @@ public class MummyMazeState extends State implements Cloneable {
             if (enemy != e) {
                 if(enemy.getCellEnemy().equals(e.getCellEnemy())) {
                     enemies.remove(e);
+
                 }
             }
         }
@@ -382,13 +380,14 @@ public class MummyMazeState extends State implements Cloneable {
             return false;
         }
 
-        return Arrays.deepEquals(matrix, o.matrix);
+        return Arrays.deepEquals(matrix, o.matrix) && hero.equals(o.hero) && enemies.equals(o.enemies);
     }
 
     @Override
     public int hashCode() {
-        return 97 * 7 + Arrays.deepHashCode(this.matrix);
-    } //corresponde ao hash da matriz
+        int result = Arrays.deepHashCode(matrix) + hero.hashCode() + enemies.hashCode();
+        return result;
+    }
 
     @Override
     public String toString() {
