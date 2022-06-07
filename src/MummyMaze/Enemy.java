@@ -1,6 +1,7 @@
 package MummyMaze;
 
 import java.util.List;
+import java.util.Objects;
 
 import static MummyMaze.EnemyType.*;
 
@@ -8,7 +9,6 @@ public class Enemy {
     private Cell enemyCell;
     private Cell heroCell;
     private Cell keyCell;
-    private List<Cell> doors;
 
     private EnemyType tipoInimigo;
     private char[][] matrix;
@@ -346,5 +346,18 @@ public class Enemy {
     @Override
     protected Enemy clone() {
         return new Enemy(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Enemy)) return false;
+        Enemy enemy = (Enemy) o;
+        return Objects.equals(enemyCell, enemy.enemyCell) && tipoInimigo == enemy.tipoInimigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(enemyCell, tipoInimigo);
     }
 }
