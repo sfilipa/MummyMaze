@@ -6,15 +6,15 @@ import searchmethods.Node;
 
 public class Solution {
     private final Problem problem;
-    private final LinkedList<Action> actions;//lista de ações
+    private final LinkedList<Action> actions;
 
     public Solution(Problem problem, Node goalNode){
         this.problem = problem;
         Node node = goalNode;
         actions = new LinkedList<>();
-        while(node.getParent() != null){ //em cada nó pergunta quem é o pai deles
+        while(node.getParent() != null){
             actions.addFirst(node.getState().getAction());
-            node = node.getParent(); //pergunta novamente até chegarmos ao Nó inicial
+            node = node.getParent();
         }        
     }
 

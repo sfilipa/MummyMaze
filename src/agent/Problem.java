@@ -6,9 +6,7 @@ import java.util.List;
 
 public abstract class Problem <S extends State>{
 
-    //TODO
-
-    protected S initialState; //é melhor ser protected por ser uma classe abstrata, S é uma sub classe de State
+    protected S initialState;
     protected Heuristic heuristic;
     protected List<Action> actions;//ações possiveis válidas e inválidas
 

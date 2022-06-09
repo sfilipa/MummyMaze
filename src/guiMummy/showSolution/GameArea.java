@@ -116,7 +116,6 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		this.mummyMaze = state;
 		mummyMaze.addListener(this);
 		repaint();
-		//System.out.println("passou");
 	}
 
 	public void setShowSolutionCost(boolean showSolutionCost) {

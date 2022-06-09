@@ -8,22 +8,16 @@ import java.util.List;
 
 public class MummyMazeProblem extends Problem<MummyMazeState> {
 
-    private MummyMazeState goalState; //para o isGoal method
-
     public MummyMazeProblem(MummyMazeState initialState) {
-        super(initialState, new ArrayList<>(5)); //deve ser sempre a primeira linha num construtor
-        super.actions.add(new ActionUp());//lista de ações disponiveis
+        super(initialState, new ArrayList<>(5));
+        super.actions.add(new ActionUp());
         super.actions.add(new ActionRight());
         super.actions.add(new ActionDown());
         super.actions.add(new ActionLeft());
         super.actions.add(new ActionDontMove());
 
-        //this.goalState = new MummyMazeState(MummyMazeState.GOAL_MATRIX); //iniciar no objetivo(é a constante)
-
     }
 
-    //devolve a lista de estados sucessores(estados para onde é possivel transitar a partir daquele que
-    // é possivel por argumento)
     @Override
     public List<MummyMazeState> executeActions(MummyMazeState state) {
 
@@ -38,7 +32,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
                     MummyMazeState successor = (MummyMazeState) state.clone();
                     //executar a ação sobre o novo estado
                     successor.executeAction(action);
-                    //      adicionar o novo estado à lista de sucessores
+                    //adicionar o novo estado à lista de sucessores
                     successors.add(successor);
                 }
             }
@@ -50,22 +44,11 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     @Override
     public boolean isGoal(MummyMazeState state) {
         return state.arrivedToExit();
-        //return state.equals(goalState);
     }//vê se o state é igual ao objetivo
 
-    //control + O para override
     @Override
     protected double computePathCost(List<Action> path) {
-        return path.size(); //porque as ações têm todas custo 1
-
+        return path.size();
     }
-
-    public MummyMazeState getGoalState() {
-        return goalState;
-    }/*
-
-    public void setGoalState(MummyMazeState goalState) {
-        this.goalState = goalState;
-    }*/
 
 }

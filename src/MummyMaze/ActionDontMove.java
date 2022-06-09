@@ -9,8 +9,8 @@ public class ActionDontMove extends Action<MummyMazeState> {
 
     @Override
     public void execute(MummyMazeState state){
-        state.dontMove();//mando o estado não se mexer
-        state.setAction(this); //define esta ação como sendo a ação que deu origem ao estado
+        state.dontMove();
+        state.setAction(this);
     }
 
     @Override

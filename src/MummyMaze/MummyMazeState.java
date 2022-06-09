@@ -293,6 +293,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     //HEURISTICAS
 
+    // calcula a distancia de Manhattan entre o heroi e a saida
     public double computeHeroToExitDistance() {
 
         double HeroToExitDistance = 0;
@@ -301,7 +302,9 @@ public class MummyMazeState extends State implements Cloneable {
                 + Math.abs(hero.getColumn() - exit.getColumn());
     }
 
-
+    //calcula a distancia de cada armadilha ao heroi, multiplica essa distancia por -1
+    // e guarda esse valor, retornando o valor mais pequeno que corresponderá à distancia maior da armadilha
+    //quanto maior a distancia à armadilha melhor
     public double computeHeroToTrapDistance() {
         if (traps.size() > 0) {
             double trapDistance = 0;
@@ -330,7 +333,9 @@ public class MummyMazeState extends State implements Cloneable {
 
     }
 
-
+    //calcula a distancia de cada enemy ao heroi, multiplica essa distancia por -1
+    // e guarda esse valor, retornando o valor mais pequeno que corresponderá à distancia maior ao enemy
+    //quanto maior a distancia aos enemies melhor
     public double computeEnemyDistances() {
 
         double enemyDistance = 0;
@@ -368,11 +373,6 @@ public class MummyMazeState extends State implements Cloneable {
     public Cell getCellKey() {
         return key;
     }
-
-
-    /*public boolean isValidPosition(int line, int column) {
-        return line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length;
-    }*/
 
     @Override
     //devolve verdadeiro se houver igualidade entre 2 objetos(se as suas qualidades são iguais)

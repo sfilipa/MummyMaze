@@ -1,13 +1,13 @@
 package agent;
 
-public abstract class State{ //configuração de um problema
+public abstract class State{
 
     /**
      * Action that generated this state.
      */
     protected Action action;
 
-    public abstract void executeAction(Action action); //método abstrato que executa a ação
+    public abstract void executeAction(Action action);
     
     public Action getAction(){
         return action;
