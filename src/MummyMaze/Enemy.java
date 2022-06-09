@@ -131,14 +131,14 @@ public class Enemy {
     private String canMove() {
         switch (tipoInimigo) {
             case WHITEMUMMY:
-                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
-                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a do enemy
+                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha do enemy tiver a baixo da do heroi, move-se para cima
                         if (enemyCell.getLine() > 1) {
                             if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "up";
                             }
                         }
-                    } else if (enemyCell.getLine() < heroCell.getLine()) {//se a linha da mumia tiver a cima da do heroi, move-se para baixo
+                    } else if (enemyCell.getLine() < heroCell.getLine()) {//se a linha do enemy tiver a cima da do heroi, move-se para baixo
                         if (enemyCell.getLine() < 10) {
                             if (matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '=') {
                                 return "down";
@@ -261,14 +261,14 @@ public class Enemy {
                 }
                 break;
             case SCORPION:
-                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a da mumia
-                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha da mumia tiver a baixo da do heroi, move-se para cima
+                if (enemyCell.isInSameColumn(heroCell)) {//se a coluna do heroi for a mesma que a do enemy
+                    if (enemyCell.getLine() > heroCell.getLine()) {//se a linha do enemy tiver a baixo da do heroi, move-se para cima
                         if (enemyCell.getLine() > 1) {
                             if (matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() - 1][enemyCell.getColumn()] != '=') {
                                 return "up";
                             }
                         }
-                    } else if (enemyCell.getLine() < heroCell.getLine()) {//se a linha da mumia tiver a cima da do heroi, move-se para baixo
+                    } else if (enemyCell.getLine() < heroCell.getLine()) {//se a linha do enemy tiver a cima da do heroi, move-se para baixo
                         if (enemyCell.getLine() < 10) {
                             if (matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '-' && matrix[enemyCell.getLine() + 1][enemyCell.getColumn()] != '=') {
                                 return "down";
