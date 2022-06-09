@@ -98,18 +98,18 @@ public class MainFrame extends JFrame {
         comboBoxHeuristics.setEnabled(false);
         comboBoxHeuristics.addActionListener(new ComboBoxHeuristics_ActionAdapter(this));
 
-        JPanel puzzlePanel = new JPanel(new FlowLayout());
+        JPanel mummyPanel = new JPanel(new FlowLayout());
         gameArea = new GameArea();
-        puzzlePanel.add(gameArea);
+        mummyPanel.add(gameArea);
         textArea = new JTextArea(15, 31);
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
-        puzzlePanel.add(scrollPane);
+        mummyPanel.add(scrollPane);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(panelButtons, BorderLayout.NORTH);
         mainPanel.add(panelSearchMethods, BorderLayout.CENTER);
-        mainPanel.add(puzzlePanel, BorderLayout.SOUTH);
+        mainPanel.add(mummyPanel, BorderLayout.SOUTH);
         contentPane.add(mainPanel);
 
         pack();

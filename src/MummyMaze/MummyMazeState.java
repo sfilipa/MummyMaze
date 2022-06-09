@@ -6,7 +6,7 @@ import agent.State;
 import java.util.*;
 
 public class MummyMazeState extends State implements Cloneable {
-    //cleneable é copiar o objeto
+    //definição dos objetos
     public static final int SIZE = 13;
     private char[][] matrix;
     private List<Enemy> enemies;
@@ -17,6 +17,7 @@ public class MummyMazeState extends State implements Cloneable {
     private Cell key;
 
     public MummyMazeState(char[][] matrix) {
+        //inicialização dos objetos
         this.matrix = new char[matrix.length][matrix.length];
         enemies = new ArrayList<>();
         doors = new ArrayList<>();
@@ -60,6 +61,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public MummyMazeState(MummyMazeState state) {
+        //segundo construtor para copiar o estado
         this(state.matrix);
 
         if (state.hero != null) {
@@ -89,22 +91,22 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public void executeAction(Action action) {
+        //executa as ações
         action.execute(this);
 
         firePuzzleChanged(null);
-        if (!chegouASaida()) {
+        if (!arrivedToExit()) {
+            //para cada enemy
             for (int i = 0; i < enemies.size(); i++) {
                 Enemy enemy = enemies.get(i);
+                //executa o movimento do enemy
                 enemy.move(this, enemy);
 
-                VerifyThings(enemy);
+                //verificar se o enemy está na mesma posição de outro enemy e mata o outro
+                verifyOverlapEnemies(enemy);
 
-                /*if(key!=null) {
-                    if (enemy.getCellEnemy().equals(key)) {
-                       Key();
-                    }
-                }*/
-
+                //se existirem armadilhas, desenha-as na matriz
+                //se o enemy estiver em cima da armadilha, desenha o enemy na matriz
                 if (traps.size() != 0) {
                     for (Cell trap : traps) {
                         if (enemy.getCellEnemy().equals(trap)) {
@@ -122,19 +124,20 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
-
-    public void VerifyThings(Enemy enemy) {
+        //verificar enemies sobrepostos
+    public void verifyOverlapEnemies(Enemy enemy) {
         for (int j = 0; j < enemies.size(); j++) {
             Enemy e = enemies.get(j);
+            //se o "enemy" não tiver a mesma referência do "e"
             if (enemy != e) {
+                //se o "enemy" estiver na mesma posição do "e", remove o "e" (o enemy que foi sobreposto por último)
                 if(enemy.getCellEnemy().equals(e.getCellEnemy())) {
                     enemies.remove(e);
-
                 }
             }
         }
     }
-
+    //verifica se pode mover para cima(se não tem paredes e portas verticais/horizontais)
     public boolean canMoveUp() {
         if (hero.getLine() > 1) {
             if (matrix[hero.getLine() - 1][hero.getColumn()] != '-' && matrix[hero.getLine() - 1][hero.getColumn()] != '=') {
@@ -143,7 +146,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
         return matrix[hero.getLine() - 1][hero.getColumn()] == 'S';
     }
-
+    //verifica se pode mover para a direita(se não tem paredes e portas verticais/horizontais)
     public boolean canMoveRight() {
         if (hero.getColumn() != matrix.length - 2) {
             if (matrix[hero.getLine()][hero.getColumn() + 1] != '|' && matrix[hero.getLine()][hero.getColumn() + 1] != '"') {
@@ -152,7 +155,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
         return matrix[hero.getLine()][hero.getColumn() + 1] == 'S';
     }
-
+    //verifica se pode mover para baixo(se não tem paredes e portas verticais/horizontais)
     public boolean canMoveDown() {
         if (hero.getLine() != matrix.length - 2) {
             if (matrix[hero.getLine() + 1][hero.getColumn()] != '-' && matrix[hero.getLine() + 1][hero.getColumn()] != '=') {
@@ -161,7 +164,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
         return matrix[hero.getLine() + 1][hero.getColumn()] == 'S';
     }
-
+    //verifica se pode mover para a esquerda(se não tem paredes e portas verticais/horizontais)
     public boolean canMoveLeft() {
         if (hero.getColumn() > 1) {
             if (matrix[hero.getLine()][hero.getColumn() - 1] != '|' && matrix[hero.getLine()][hero.getColumn() - 1] != '"') {
@@ -170,15 +173,15 @@ public class MummyMazeState extends State implements Cloneable {
         }
         return matrix[hero.getLine()][hero.getColumn() - 1] == 'S';
     }
-
+    //verifica se não pode mover
     public boolean cannotMove() {
         if(matrix[hero.getLine()-1][hero.getColumn()] != '-' && matrix[hero.getLine()-1][hero.getColumn()] != '=' && matrix[hero.getLine()+1][hero.getColumn()] != '-' && matrix[hero.getLine()+1][hero.getColumn()] != '=' && matrix[hero.getLine()][hero.getColumn()-1] != '|' && matrix[hero.getLine()][hero.getColumn()-1] != '"' && matrix[hero.getLine()][hero.getColumn()+1] != '|' && matrix[hero.getLine()][hero.getColumn()+1] != '"') {
             return false;
         }
         return true;
     }
-
-    public boolean isDead() {
+    //verifica se o heroi está na mesma posição dos enemies e das armadilhas e mata o heroi
+    public boolean isHeroDead() {
         for (Enemy enemy : enemies) {
             if (enemy.getCellEnemy().equals(hero)) {
                 return true;
@@ -191,24 +194,26 @@ public class MummyMazeState extends State implements Cloneable {
         }
         return false;
     }
-
+    //altera o estado das portas conforme estejam abertas ou fechadas
     public void Key() {
         if (doors.size() > 0) {
             for (Cell door : doors) {
-                if (matrix[door.getLine()][door.getColumn()] == '_') {
-                    matrix[door.getLine()][door.getColumn()] = '=';
-                } else if (matrix[door.getLine()][door.getColumn()] == '=') {
-                    matrix[door.getLine()][door.getColumn()] = '_';
-                } else if (matrix[door.getLine()][door.getColumn()] == '"') {
-                    matrix[door.getLine()][door.getColumn()] = ')';
-                } else if (matrix[door.getLine()][door.getColumn()] == ')') {
-                    matrix[door.getLine()][door.getColumn()] = '"';
+                if (matrix[door.getLine()][door.getColumn()] == '_') { //se a porta estiver aberta
+                    matrix[door.getLine()][door.getColumn()] = '='; //fecha
+                } else if (matrix[door.getLine()][door.getColumn()] == '=') { //se a porta estiver fechada
+                    matrix[door.getLine()][door.getColumn()] = '_'; //aberta
+                } else if (matrix[door.getLine()][door.getColumn()] == '"') { //se a porta estiver fechada
+                    matrix[door.getLine()][door.getColumn()] = ')'; //aberta
+                } else if (matrix[door.getLine()][door.getColumn()] == ')') { //se a porta estiver aberta
+                    matrix[door.getLine()][door.getColumn()] = '"'; //fecha
                 }
             }
         }
     }
-
+    //heroi move para cima
     public void moveUp() {
+        //se o heroi na ronda anterior estiver na mesma posição da chave, desenha a chave
+        //senão desenha uma quadricula vazia
         if (hero.equals(key) && key != null) {
             matrix[hero.getLine()][hero.getColumn()] = 'C';
         } else {
@@ -220,11 +225,12 @@ public class MummyMazeState extends State implements Cloneable {
             hero.setLine(hero.getLine() - 2);
         }
         matrix[hero.getLine()][hero.getColumn()] = 'H';
+        //se o heroi no final do movimento estiver na mesma posição da chave, aciona o método Key() para alterar as portas
         if (key != null && hero.equals(key)) {
             Key();
         }
     }
-
+    //heroi move para direita
     public void moveRight() {
         if (hero.equals(key) && key != null) {
             matrix[hero.getLine()][hero.getColumn()] = 'C';
@@ -242,6 +248,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
+    //heroi move para baixo
     public void moveDown() {
         if (hero.equals(key) && key != null) {
             matrix[hero.getLine()][hero.getColumn()] = 'C';
@@ -258,7 +265,7 @@ public class MummyMazeState extends State implements Cloneable {
             Key();
         }
     }
-
+    //heroi move para a esquerda
     public void moveLeft() {
         if (hero.equals(key) && key != null) {
             matrix[hero.getLine()][hero.getColumn()] = 'C';
@@ -275,12 +282,12 @@ public class MummyMazeState extends State implements Cloneable {
             Key();
         }
     }
-
+    //o heroi permanece na mesma posição
     public void dontMove() {
         matrix[hero.getLine()][hero.getColumn()] = 'H';
     }
-
-    public boolean chegouASaida() {
+    //verifica se a posição do heroi coincide com a saida
+    public boolean arrivedToExit() {
         return hero.equals(exit);
     }
 
@@ -349,10 +356,7 @@ public class MummyMazeState extends State implements Cloneable {
 
         return min;
     }
-    public List<Cell> getTraps() {
-        return this.traps;
-    }
-
+   //getters - obtém a matriz, o heroi e a chave, usado na classe enemy
     public char[][] getMatrix() {
         return matrix;
     }
@@ -365,12 +369,14 @@ public class MummyMazeState extends State implements Cloneable {
         return key;
     }
 
-    public boolean isValidPosition(int line, int column) {
+
+    /*public boolean isValidPosition(int line, int column) {
         return line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length;
-    }
+    }*/
 
     @Override
-    public boolean equals(Object other) {//devolve verdadeiro se houver igualidade entre 2 objetos(se as suas qualidades são iguais)
+    //devolve verdadeiro se houver igualidade entre 2 objetos(se as suas qualidades são iguais)
+    public boolean equals(Object other) {
         if (!(other instanceof MummyMazeState)) {
             return false;
         }
@@ -390,6 +396,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     @Override
+    //transforma o estado numa string
     public String toString() {
         String turno = "";
         for (int i = 0; i < matrix.length; i++) {

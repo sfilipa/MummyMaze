@@ -4,17 +4,19 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Cell {
+    //atributos
     private int line, column;
 
+    //construtores
     public Cell(int line, int column) {
         this.line = line;
         this.column = column;
     }
-
     public Cell(Cell cell) {
         this(cell.line, cell.column);
     }
 
+    //setters
     public void setLine(int line) {
         this.line = line;
     }
@@ -23,17 +25,23 @@ public class Cell {
         this.column = column;
     }
 
-    //equals, is in mesma linha
-    //em vez das linhas para heroi e mumia por as celulas
-    //celula so para guardar pos
+    //getters
+    public int getLine() {
+        return line;
+    }
 
+    public int getColumn() {
+        return column;
+    }
+
+    //se estão na mesma linha
     public boolean isInSameLine(Cell c){
         if(line == c.line){
             return true;
         }
         return false;
     }
-
+    //se estão na mesma coluna
     public boolean isInSameColumn(Cell c){
         if(column == c.column){
             return true;
@@ -59,11 +67,5 @@ public class Cell {
         return Objects.hash(line, column);
     }
 
-    public int getLine() {
-        return line;
-    }
 
-    public int getColumn() {
-        return column;
-    }
 }

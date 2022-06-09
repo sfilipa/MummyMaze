@@ -29,7 +29,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
         //Lista de estado sucessores no máx 5
         ArrayList<MummyMazeState> successors = new ArrayList<>(5);
-        if (!state.isDead()) {
+        if (!state.isHeroDead()) {
             //para cada ação disponivel
             for (Action action : actions) {
                 //  se a ação for válida
@@ -49,7 +49,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
     @Override
     public boolean isGoal(MummyMazeState state) {
-        return state.chegouASaida();
+        return state.arrivedToExit();
         //return state.equals(goalState);
     }//vê se o state é igual ao objetivo
 
