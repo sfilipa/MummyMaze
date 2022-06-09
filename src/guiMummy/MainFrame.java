@@ -46,11 +46,11 @@ public class MainFrame extends JFrame {
     private JLabel labelSearchParameter = new JLabel("limit/beam size:");
     private JTextField textFieldSearchParameter = new JTextField("0", 5);
     private GameArea gameArea;
-    private JButton buttonInitialState = new JButton("Read initial state");
+    private JButton buttonInitialState = new JButton("Read level");
     private JButton buttonSolve = new JButton("Solve");
     private JButton buttonStop = new JButton("Stop");
     private JButton buttonShowSolution = new JButton("Show solution");
-    private JButton buttonReset = new JButton("Reset to initial state");
+    private JButton buttonReset = new JButton("Reset level");
     private JTextArea textArea;
 
     public MainFrame() {
