@@ -24,7 +24,6 @@ public class Agent<E extends State> {
         searchMethods.add(new GreedyBestFirstSearch());
         searchMethods.add(new AStarSearch());
         searchMethods.add(new BeamSearch());
-        searchMethods.add(new IDAStarSearch());
         searchMethod = searchMethods.get(0);
         heuristics = new ArrayList<>();
     }
