@@ -1,3 +1,5 @@
+<h1>🕹️ MummyMaze</h1>
+
 <div style="border: 1px solid black; padding: 10px;">
 <p>This project was developed as part of the <strong>Artificial intelligence</strong> course in the Computer Science and Engineering degree during the academic year 2021/2022.
 <h1>Collaborators:</h1>
@@ -6,16 +8,19 @@
 <li><a href="https://github.com/BelisaLopes">Belisa</a></li>
 </ul>
 <h1>Project Description:</h1>
+We developed an application that utilized search algorithms implemented in practical classes to play the Mummy Maze game. For the informed search algorithms, we formulated at least three distinct heuristics suitable for the problem. The program allowed the user to choose a specific level to solve, the search algorithm, and the heuristic to use (if applicable).
+<br><br>
+We also conducted a comparative study of the performance of the various search algorithms and heuristics used to solve the problems. Specifically, we studied the performance of uninformed search algorithms, the performance of informed search algorithms, the performance of uninformed search algorithms versus informed search algorithms, and the quality of the heuristics used.
+<br>
+<br>
 <ul>
 <li><strong>Note:</strong> We've noticed that the commits in our project are lacking clear and descriptive names. It would be helpful if we could improve the naming convention for our commits going forward to make it easier to understand what changes were made.</li>
 </ul>
-<p>&#8702; <a href="">Project Statement</a></p>
-<p>&#8702; <a href="">Report</a></p>
+<p>&#8702; <a href="https://github.com/sfilipa/MummyMaze/blob/main/Project_Sheet_2021_2022_EN.pdf">Project Statement</a></p>
+<p>&#8702; <a href="https://github.com/sfilipa/MummyMaze/blob/main/IA_Projeto_2201757_2200724.pdf">Report</a></p>
 <h1>Tools Used</h1>
 <ul>
-<li>Visual Paradigm for creating use case diagrams, sequence diagrams, and other diagrams.</li>
 <li>IntelliJ IDEA: Used as the development environment for writing and testing the code.</li>
-<li>JUnit: Used for writing and running unit tests.</li>
 </ul>
 
 <h1>Other Information</h1>
